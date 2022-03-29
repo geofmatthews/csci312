@@ -1,4 +1,5 @@
 -- Adapted from https://cs.pomona.edu/~michael/courses/csci131s18/lec/Lec09.html
+-- Typechecking added Geoff Matthews, 2022
 
 import Data.Char
 import Control.Applicative
@@ -18,7 +19,7 @@ data Type =
    | IntType
    | LambdaType Type Type
    | FailureType 
-    deriving (Show, Eq)
+    deriving (Show, Eq, Ord)
 
 type TypeStore = Map.Map VarName Type
 
@@ -37,7 +38,7 @@ data AExp =
  | App AExp AExp                              --NEW
  | Let String AExp AExp                       --NEW
  | IfExp (BExp AExp) AExp AExp                --NEW
- | Rec String Type String Type AExp AExp      --NEW
+ | RecExp String Type String Type AExp AExp   --NEW
   deriving (Show, Eq)
 
 data BExp a =
@@ -55,6 +56,7 @@ data Stmt a b =
   | Seq (Stmt a b) (Stmt a b)
   | If (b a) (Stmt a b) (Stmt a b)
   | While (b a) (Stmt a b)
+  | RecAssign VarName Type VarName Type a
   deriving (Show, Eq, Ord)
 
 newtype Parser a = Parser { parse :: String -> Maybe (a,String) }
@@ -110,7 +112,7 @@ aif = IfExp <$> (tif *> bexp)
                 <*> (tthen *> aexp)
                 <*> (telse *> aexp <* tend)                --NEW
        <|> arec
-arec = Rec <$> (trec *> str)
+arec = RecExp <$> (trec *> str)
                  <*> (teq *> typeparse)
                  <*> (tlambda *> str)              --NEW
                  <*> (tcolon *> typeparse)         --NEW
@@ -213,11 +215,17 @@ bexp = bterm
 stmt' :: Parser (Stmt AExp BExp)
 stmt' = Assign <$> str <* tassign <*> aterm
 
-         <|> If     <$> (tif *> bexp)  <*> (tthen *> stmt) <*> (telse *> stmt) <* tend
+   <|> RecAssign <$> (trec *> str) <*>
+                     (tassign *> typeparse) <*>
+                     (tlambda *> str) <*>
+                     (tcolon *> typeparse) <*>
+                     (tlbrace *> aexp <* trbrace)
 
-         <|> While  <$> (twhile *> bexp) <*> (tdo *> stmt) <* tend
+   <|> If     <$> (tif *> bexp)  <*> (tthen *> stmt) <*> (telse *> stmt) <* tend
 
-         <|> pure Skip <* tskip
+   <|> While  <$> (twhile *> bexp) <*> (tdo *> stmt) <* tend
+
+   <|> pure Skip <* tskip
 
 stmt :: Parser (Stmt AExp BExp)
 stmt  = Seq <$> stmt' <* tsemi <*> stmt <|> stmt'
@@ -249,8 +257,8 @@ testBExp str expected =
        putStrLn("                    FAILED")
        exitFailure
 
-tests :: String -> Maybe ((Stmt AExp BExp),String) -> IO()
-tests str expected =
+testStmt :: String -> Maybe ((Stmt AExp BExp),String) -> IO()
+testStmt str expected =
   let result = parse stmt str in
   do
     putStrLn ("Testing: " ++ str)
@@ -454,16 +462,16 @@ main = do
         (Just (And (Equal (Var "x") (Num 5)) (Lt (Var "y") (Num 7)),""))
   testBExp "3 != 5"
         (Just (Not (Equal (Num 3) (Num 5)),""))
-  tests "x := 5"
+  testStmt "x := 5"
         (Just (Assign "x" (Num 5),""))
-  tests "WHILE true DO x := 3 END"
+  testStmt "WHILE true DO x := 3 END"
         (Just (While (Bool True) (Assign "x" (Num 3)),""))
-  tests "IF x != 0 THEN y := 10 ELSE y := x END"
+  testStmt "IF x != 0 THEN y := 10 ELSE y := x END"
         (Just (If (Not (Equal (Var "x") (Num 0)))
                   (Assign "y" (Num 10))
                   (Assign "y" (Var "x")),""))
-  tests "SKIP" (Just (Skip,""))
-  tests "SKIP; SKIP" (Just (Seq Skip Skip,""))
+  testStmt "SKIP" (Just (Skip,""))
+  testStmt "SKIP; SKIP" (Just (Seq Skip Skip,""))
 
 
   testAExp "[a b]" (Just (App (Var "a") (Var "b"),""))
@@ -592,13 +600,20 @@ main = do
 
   putStrLn("--------------RecExp for homework ----------")
   testAExp "REC f = int \\x:int {[f x+1]} IN [f 3] END"
-     (Just (Rec "f" IntType "x" IntType 
+     (Just (RecExp "f" IntType "x" IntType 
               (App (Var "f") (Plus (Var "x") (Num 1))) 
               (App (Var "f") (Num 3)),""))
   testAExp ("REC f = int \\x:int {IF x < 1 THEN 1 ELSE x * [f x+1] END} " ++
             "IN [f 5] END")
-    (Just (Rec "f" IntType "x" IntType
+    (Just (RecExp "f" IntType "x" IntType
         (IfExp (Lt (Var "x") (Num 1)) 
                (Num 1)
                (Times (Var "x") (App (Var "f") (Plus (Var "x") (Num 1)))))
         (App (Var "f") (Num 5)),""))
+
+  putStrLn("----Recursive assignment statement for homework --")
+  testStmt "REC f := int \\x:int { 9 }"
+           (Just (RecAssign "f" IntType "x" IntType (Num 9),""))
+  testStmt "REC f := int \\x:int { [f x+1 ] }"
+           (Just (RecAssign "f" IntType "x" IntType 
+                       (App (Var "f") (Plus (Var "x") (Num 1))),""))

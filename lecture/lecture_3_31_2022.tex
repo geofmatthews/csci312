@@ -549,22 +549,22 @@ findTypeAExp a store =
 \frametitle{Typed recursive functions}
 What type information do you need to typecheck recursive functions?
 \begin{verbatim}
-REC f = \x:int { [ f (x+1) ] } IN [f 3] END
+REC f := \x:int { [ f (x+1) ] }
 
 f :: (int -> ??)
 \end{verbatim}
 
 \pause
 \begin{verbatim}
-REC f = int \x:int { [ f (x+1) ] } IN [f 3] END
+REC f := int \x:int { [ f (x+1) ] }
 \end{verbatim}
-\pause
+
 \begin{verbatim}
 f :: (int -> int)
 \end{verbatim}
-\pause
+
 \begin{verbatim}
-REC f = (int -> int) \x:int { [ f (x+1) ] } IN [f 3] END
+REC f := (int -> int) \x:int { [ f (x+1) ] }
 \end{verbatim}
 \pause
 \begin{verbatim}
@@ -576,33 +576,64 @@ Recursive typechecking will be one of your exercises today.
 
 
 \begin{frame}[fragile]
-\frametitle{Your Turn! Write typecheckers for some new expressions.}
+\frametitle{Without typechecking, recursion totally unnecessary!}
 
-{\LARGE Let's Do {\tt IfExp} !}
+Recursive version:
+\begin{verbatim}
+f1 := \x { If x < 1 Then 1 Else x * [f1 (x-1)] End};
+[f1 5];
+\end{verbatim}
 
+\bigskip
+
+Doing the same thing without recursion:
+\begin{verbatim}
+f2 := \g {\x {If x < 1 Then 1 Else x * [[g g] (x-1)] End} };
+[[f2 f2] 5]
+\end{verbatim}
+
+\pause
+
+This can actually be done in {\bf Scheme}, which has no static typechecking.
+
+It cannot be done in Haskell.  Why not?
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Your Turn!}
+Write typecheckers for these expressions and statements.
+\begin{enumerate}
+\item
 \begin{verbatim}
 IF x < 4 THEN 8 + x ELSE x + 9 END
 \end{verbatim}
-
-\bigskip
-{\LARGE Let's Do {\tt Let} !}
-
+\item
 \begin{verbatim}
 LET x = 2 + 2 IN x + x END
 \end{verbatim}
-
-\bigskip
-{\LARGE Let's Do Recursion!!}
+\item
+\begin{verbatim}
+REC f := int \x:int { [f x+1] }
+\end{verbatim}
+\item
 \begin{verbatim}
 REC f = int \x:int { [f x+1] } IN [f 3] END
 \end{verbatim}
-
-\bigskip
-
+\end{enumerate}
 
 I've done the parsing for you, \\just add clauses  to the
-{\tt findTypeAExp} function.
-
+{\tt findTypeAExp} and {\tt typeCheckStmt} function.
+\begin{verbatim}
+data AExp = ...
+  | Let String AExp AExp 
+  | IfExp (BExp AExp) AExp AExp  
+  | RecExp String Type String Type AExp AExp 
+  ...
+data Stmt a b = 
+  | RecAssign VarName Type VarName Type a
+  ...
+\end{verbatim}
 \end{frame}
 
 \end{document}
