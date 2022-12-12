@@ -1,2 +1,2 @@
 # csci312
-Notes and code for guest lecture at W&amp;L March 31, 2022
+Notes and code for CSCI312 at W&amp;L Winter 2023
