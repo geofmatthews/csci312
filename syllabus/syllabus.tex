@@ -13,7 +13,7 @@ Syllabus, CSCI312, Programming Languages
 \author{Winter 2023}
 \date{}
 
-\newcommand{\myitem}[1]{\item{\bf #1}}
+\newcommand{\myitem}[1]{\item[#1]}
 
 \begin{document}
 \maketitle
@@ -31,7 +31,18 @@ Parmly 407A, {\tt gmatthews <at>  wlu <dot> edu}
 \myitem{Lectures:} MWF 12:15 - 1:15, Parmly 405
 
 \myitem{Goals.}  This class is an introduction to the semantics of
-programming languages.  Although we will do some simple programming in
+programming languages.  We will study how things work: functions,
+scoping, objects, continuations, and how these and other features
+determine the character and style of various programming languages.
+
+Rather than study semantics abstractly,
+we will study these features using {\bf interpreter semantics}: 
+to understand or explain how a feature works, build an interpreter
+for it.  This method gives immediate feedback, allowing
+us to program using this feature in simple languages,
+and evaluate its usefulness  for various tasks.
+
+Although we will do some simple programming in
 a variety of programming languages, most of our programming will be in
 Scheme, \url{http://www.schemers.org/}, an advanced functional
 programming language.  Functional programming is a methodology, style,
@@ -84,10 +95,60 @@ Good reference manual for Scheme.
 \myitem{Grading:}
 Homework: 50\%; Midterm: 20\%; Final: 30\%; Extra Credit: 10\%.
 
-\myitem{Letter grades:}
+\item[Letter grades:]
 A $\ge$ 90\% $>$ B $\ge$ 80\% $>$ C $\ge$ 70\% $>$ D $\ge$ 60\% $>$ F
 
-\myitem{Extra credit:} A maximum of 10 percentage points of extra
+\item[Homework:]  Homework assignments will be awarded as they
+come up, to match timing with the lectures.  They will be announced
+in class and on canvas.
+
+Homework assignments will be available on the github site.
+Several are there already, so you can look at them in advance,
+but I reserve the right to revise them at any time prior to
+their announcement in class and the setting of a due date.
+
+Points will be awarded according to the
+following.
+
+
+\begin{tabular}{p{0.75\textwidth}|c}
+\bf Factors to consider: & \bf Points \\\hline
+{\bf Outstanding work.}    Well formatted, modular,
+well commented, well designed.  
+Clear, self-documenting identifiers: variables, functions, class names.
+Good, consistent docstrings.
+ Extra work on optional problems or extensions
+of the required work.  Error checking.  Comprehensive unit tests. Innovative solutions.
+Extensive documentation on design decisions and results.
+ & 5 \\\hline
+{\bf Good work.}  The problem is solved completely and without errors.
+Adequate documentation.
+ & 4 \\\hline
+{\bf Adequate work.}  Most, but not all of the problem is solved.  Poor documentation.
+ & 3 \\\hline
+ {\bf Incomplete work.}  Some progress was made, but no complete solution.
+ Nonexistent documentation.
+ & 2 \\\hline
+{\bf Poor work.}  Little or none of the problem is solved.  Random bits of code copied
+from lectures or the problem description without showing any real coherence
+or understanding of an approach to the problem.
+ & 1 \\\hline
+{\bf Unacceptable work.}
+ Syntax errors.  Not turned in on time.  Did not follow instructions. & 0 \\
+\end{tabular}
+\item[Midterms:]  There will be two midterms, each worth 10\%, as
+in the class schedule below.   They is open
+book and open notes, but you may not consult with any classmates
+or the internet or other resources.
+
+
+\item[Final exam:]  The final exam is comprehensive.  It is open
+book and open notes, but you may not consult with any classmates
+or the internet or other resources.
+
+
+
+\item[Extra credit:] A maximum of 10 percentage points of extra
 credit may be given for a special project.  Special projects must: (a)
 be proposed to the instructor, in writing, three weeks before the last
 lecture, (b) be approved by the instructor at that time, (c) must
