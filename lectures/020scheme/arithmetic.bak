@@ -1,0 +1,11 @@
+#lang plai
+
+(define slow+
+  (lambda (a b)
+    (if (zero? a) b
+        (slow+ (sub1 a) (add1 b)))))
+
+(define slow*
+  (lambda (a b)
+    (if (zero? a) 1
+        (add1 (slow* (sub1 a) (slow+ b b))))))

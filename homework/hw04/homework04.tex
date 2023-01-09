@@ -1,0 +1,93 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+
+
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{amssymb,latexsym}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage{hyperref}
+\usepackage{fancybox}
+\usepackage[listings]{tcolorbox}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    language=Lisp,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    escapechar=|,
+    frame=single
+}
+
+\lstset{style=mystyle}
+
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\li}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\Show}[1]{
+\begin{center}
+\shadowbox{\begin{minipage}{0.8\textwidth}
+          #1
+          \end{minipage}}
+\end{center}
+}
+\newcommand{\arrow}{\ensuremath{\rightarrow}}
+
+\newcommand{\uparr}{\ensuremath{\uparrow}}
+
+
+\newcommand{\fig}[2]{\centerline{\includegraphics[width=#1\textwidth]{#2}}}
+
+
+\author{CSCI 312 Homework 4}
+\title{Extending the lex/yacc Scheme AE parser to WAE}
+\sloppy
+\begin{document}
+
+\maketitle
+\begin{description}
+
+\item[File names:]  Names of files and variables, when specified,
+must be EXACTLY as specified.  This includes simple mistakes such
+as capitalization.
+
+\item[Individual work:]  All work must be your own.  Do not share
+code with anyone other than the instructor and teaching assistants.
+This includes looking over shoulders at screens with the code open.
+You may discuss ideas, algorithms, approaches, {\em etc.} with
+other students but NEVER actual code
+
+\item[Project:] Extend the lex/yacc style Scheme parser
+found in {\tt AElexyacc.rkt} to handle the WAE language from the 
+text.
+
+Put all your lexer and parser code into {\tt WAElexyacc.rkt}
+and a test suite of your design into {\tt WAElexyacc-test.rkt}.
+
+Zip both files into the folder {\tt hw04} and submit to canvas.
+
+
+\end{description}
+
+
+\end{document}

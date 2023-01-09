@@ -1,0 +1,189 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+
+
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{amssymb,latexsym}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage{hyperref}
+\usepackage{fancybox}
+\usepackage[listings]{tcolorbox}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    language=Lisp,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    escapechar=|,
+    frame=single
+}
+
+\lstset{style=mystyle}
+
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\li}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\Show}[1]{
+\begin{center}
+\shadowbox{\begin{minipage}{0.8\textwidth}
+          #1
+          \end{minipage}}
+\end{center}
+}
+\newcommand{\arrow}{\ensuremath{\rightarrow}}
+
+\newcommand{\uparr}{\ensuremath{\uparrow}}
+
+
+\newcommand{\fig}[2]{\centerline{\includegraphics[width=#1\textwidth]{#2}}}
+
+
+\author{CSCI 312 Homework 2}
+\title{Scheme Programming}
+
+\begin{document}
+
+\maketitle
+\begin{description}
+
+\item[File names:]  Names of files and variables, when specified,
+must be EXACTLY as specified.  This includes simple mistakes such
+as capitalization.
+
+\item[Individual work:]  All work must be your own.  Do not share
+code with anyone other than the instructor and teaching assistants.
+This includes looking over shoulders at screens with the code open.
+You may discuss ideas, algorithms, approaches, {\em etc.} with
+other students but NEVER actual code.
+
+\item[Requirements:]~
+
+\begin{enumerate}
+\li
+You must use natural recursion to solve each of these problems.
+\li
+Do not use builtin procedures that do the bulk of the work
+for you.  For instance, if required to write a function to
+append two lists, do not use \lstinline{append}!
+\li
+Do not use Racket's looping constructs such as \lstinline{do}
+or \lstinline{for}. 
+\li
+ Do not use named \lstinline{let}, either,
+even though this is a disguised recursive program.  
+\li Use \lstinline{#lang plai} 
+\li Place all solutions in one file, named
+{\tt csci312hw02}{\em $<$yourname$>$}{\tt .rkt}
+\li Include a comment block at the top with your
+name, class name, homework number.
+\li Include simple tests for each procedure.  With the plai
+language tests are as simple as:
+\begin{lstlisting}
+(test (+ 2 2) 4)
+\end{lstlisting}
+\li You may write as many helper procedures as you like,
+in order to implement the requested procedure.  They do not
+have to be nested.
+\li Mark the beginning of each problem solution with a
+comment bar like these:
+\begin{lstlisting}
+;;;; Problem 1 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define insertR
+    ...
+;;;; Problem 2 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define zip
+   ...
+\end{lstlisting}
+All helper functions for the main procedure should be within
+the appropriate comment bars.
+\li You may assume good input; you do not have to check
+for erroneous input.
+\end{enumerate}
+
+\item[Grading:]  Problems are worth a maximum of 5 points each.
+\bi
+\li Solutions
+that are exceptionally well done get 5 points.
+\li 
+Solutions that are simply correct get 4 points.  
+\li
+Solutions that have small errors or missing tests get 3 points.
+\li 
+Solutions with major errors get 1 point.
+\li 
+Missing solutions or solutions with syntax errors get 0 points.
+\ei
+
+\item[The problems:]
+\end{description}
+\begin{enumerate}
+\li Write and test a procedure that takes two symbols and a list
+of symbols and returns the list of symbols but with
+with the second symbol inserted to the right of
+each occurrence of the first symbol.  Example:
+\begin{lstlisting}
+(insertR 'a 'b '(a x a a y z a))  => '(a b x a b a b y z a b)
+\end{lstlisting}
+
+\li Write and test a procedure that takes two lists
+of symbols and returns a list of lists of symbols,
+each consisting of the two 
+corresponding symbols from the two original lists.
+If one list is longer than the other, drop the tail of
+the longer one.
+ Example:
+\begin{lstlisting}
+(zip '(x y z) '(a b c d e))  => '((x a) (y b) (z c))
+\end{lstlisting}
+
+\li Write and test a procedure to take a symbol and a list
+of symbols and return the 0-based indices of every occurrence
+of the symbol in the list.  If there are no occurrences,
+return the empty list.  Example:
+\begin{lstlisting}
+(indices 'x '(a b x c d e x f x))  =>  '(2 6 8) 
+\end{lstlisting}
+
+\li Write and test a procedure that takes a list
+of alternating integers and symbols, and returns a list
+with each symbol repeated the integer number of times.
+Example:
+\begin{lstlisting}
+(repeater '(3 x 2 y 5 z))  =>  '(x x x y y z z z z z)
+\end{lstlisting}
+
+\li Write and test a procedure that takes two lists
+of symbols and returns the {\em Cartesian product} of
+the two lists.  That is, a list of lists, each of which
+is a list of one item from the first list and one item
+from the second.  All possible pairs are included, exactly once,
+but order does not matter.
+Example:
+\begin{lstlisting}
+(product '(a b) '(x y z))  =>  '((a x) (a y) (a z) (b x) (b y) (b z))
+\end{lstlisting}
+
+\end{enumerate}
+
+\end{document}

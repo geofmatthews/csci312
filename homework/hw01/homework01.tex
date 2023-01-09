@@ -1,0 +1,121 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+
+
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{amssymb,latexsym}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage{hyperref}
+\usepackage{fancybox}
+\usepackage[listings]{tcolorbox}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    language=Python,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    escapechar=|,
+    frame=single
+}
+
+\lstset{style=mystyle}
+
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\li}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\Show}[1]{
+\begin{center}
+\shadowbox{\begin{minipage}{0.8\textwidth}
+          #1
+          \end{minipage}}
+\end{center}
+}
+\newcommand{\arrow}{\ensuremath{\rightarrow}}
+
+\newcommand{\uparr}{\ensuremath{\uparrow}}
+
+
+\newcommand{\fig}[2]{\centerline{\includegraphics[width=#1\textwidth]{#2}}}
+
+
+\author{CSCI 312 Homework 1}
+\title{Working with Python Parse Trees}
+
+\begin{document}
+
+\maketitle
+\begin{description}
+
+\item[File names:]  Names of files and variables, when specified,
+must be EXACTLY as specified.  This includes simple mistakes such
+as capitalization.
+
+\item[Individual work:]  All work must be your own.  Do not share
+code with anyone other than the instructor and teaching assistants.
+This includes looking over shoulders at screens with the code open.
+You may discuss ideas, algorithms, approaches, {\em etc.} with
+other students but NEVER actual code
+
+\item[Project:] Use the Python AST module to make four
+programs that handle arithmetic expressions, as follows:  
+\begin{lstlisting}
+>>> postfix('2 + (3 * 4) ** 5')
+'2 3 4 * 5 ** +'
+>>> infix('2 + (3 * 4) ** 5')
+'(2+((3*4)**5))'
+>>> prefix('2 + (3 * 4) ** 5')
+'+ 2 ** * 3 4 5'
+>>> calc('2 + (3 * 4) ** 5')
+248834
+\end{lstlisting}
+The infix should be fully parenthesized, so spaces are not
+needed.  The prefix and postfix will have exactly one
+space between tokens and nothing else.
+
+Also finish the unittest module provided on the website
+with a more complete set of tests.
+
+\item[Hand in:] Two files, \lstinline{ast_homework.py}
+and \lstinline{test_ast_homework.py}. 
+
+Place them in a
+folder named {\tt csci312hw01<{\sl yourname}>} and zip
+the folder.  Turn in the zipped folder on canvas before
+the deadline.
+
+You may use the procedures in \lstinline{ast_utilities.py}
+but they are not necessary for the solution of this assignment.
+If you use them, include the file in your folder.
+
+Follow best practices for docstrings, for example,
+as found here: \url{https://coderslegacy.com/python/best-practices-for-docstrings/}
+
+The docstrings for the modules (files) should include
+your name, the date, and the class name.
+
+
+\end{description}
+
+
+\end{document}

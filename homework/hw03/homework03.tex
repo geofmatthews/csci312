@@ -1,0 +1,170 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+
+
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{amssymb,latexsym}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage{hyperref}
+\usepackage{fancybox}
+\usepackage[listings]{tcolorbox}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    language=Lisp,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    escapechar=|,
+    frame=single
+}
+
+\lstset{style=mystyle}
+
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\li}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\Show}[1]{
+\begin{center}
+\shadowbox{\begin{minipage}{0.8\textwidth}
+          #1
+          \end{minipage}}
+\end{center}
+}
+\newcommand{\arrow}{\ensuremath{\rightarrow}}
+
+\newcommand{\uparr}{\ensuremath{\uparrow}}
+
+
+\newcommand{\fig}[2]{\centerline{\includegraphics[width=#1\textwidth]{#2}}}
+
+
+\author{CSCI 312 Homework 3}
+\title{Rewriting {\tt read} in Scheme}
+
+\begin{document}
+
+\maketitle
+\begin{description}
+
+\item[File names:]  Names of files and variables, when specified,
+must be EXACTLY as specified.  This includes simple mistakes such
+as capitalization.
+
+\item[Individual work:]  All work must be your own.  Do not share
+code with anyone other than the instructor and teaching assistants.
+This includes looking over shoulders at screens with the code open.
+You may discuss ideas, algorithms, approaches, {\em etc.} with
+other students but NEVER actual code
+
+\item[Project:] A simple implementation of Scheme's \lstinline{read}
+procedure in Python is given in the file \lstinline{read.py}
+available on the homework website.
+
+Translate this procedure into Scheme.  You will have to 
+research Scheme's character and string processing, which
+has a slightly different flavor from Python's.  It is
+recommended that, just as in Python, you convert the string
+to a list to do all the processing, since list handling
+is way easier than string handling.  (Just like in Python.)
+
+\item[Pure functions:]
+The biggest difference is that you will make these procedures
+pure functions.  The Python procedures advance through the
+string by converting it to a list of characters and then
+repeatedly calling \lstinline{s.pop(0)} to remove the first
+character and advance down the string.  While the program
+uses no global variables, {\em per se}, it nevertheless treats
+the list of characters as a global since each procedure
+affects the same object. 
+
+While we could do something similar in Scheme, we want
+to get some practice in fully functional programming.
+No data structures are destructively modified in this
+approach.  Any new structures we want are nondestructively
+created from the old data structures.
+
+Likewise  there will be no assignment statemeents!
+
+\item[Use recursion:]  Do not use Scheme's looping constructs,
+but use recursion for all repeated actions.  You can use
+a named \lstinline{let} if you like, as this is simply
+a sugared version of a recursive function, but it is not
+necessary.
+
+\item[Two return values:]
+
+Therefore, all procedures except the top-level \lstinline{read}
+procedure will return two values, the parsed object, and the
+remainder of the string.
+
+To return two values within a function, for example 9 and 10,
+simply wrap them in a \lstinline{values} form:
+\begin{lstlisting}
+(define return-two-values
+  (lambda ()
+    (values 9 10)))
+\end{lstlisting}
+To catch both values at the other end, use the \lstinline{let-values}
+form:
+\begin{lstlisting}
+(let-values (((a b) (return-two-values)))
+  (list a b (+ a b)))
+  =>
+'(9 10 19)
+\end{lstlisting}
+
+\item[Tree recursion:]
+Finding both the parsed object and the remaining
+characters is easy for \lstinline{parse-symbol}
+and \lstinline{parse-number}.  Both objects
+are available by the time the recursion ends.
+
+The only place these values are used are in the 
+\lstinline{parse-list} procedure, which
+parses the head of the list, and then
+the rest of the list.  After parsing
+the head, you need to parse the rest from the
+list of characters that results {\em after}
+you're done parsing the head.  Likewise,
+after parsing the head and the rest of the list,
+you need to return the list of characters remaining.
+
+There will thus be several intermediate objects
+to handle:
+\begin{enumerate}
+\item the object at the head of the list
+\item the list of characters remaining after the head has been found
+\item the object list after the head
+\item the list of characters remaining after the end of the list
+has been found
+\end{enumerate}
+Make sure you understand clearly where each of these 
+comes from, and what to do with them after they have been found.
+
+
+
+\end{description}
+
+
+\end{document}

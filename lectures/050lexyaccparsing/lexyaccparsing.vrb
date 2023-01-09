@@ -1,0 +1,10 @@
+\frametitle{ {\tt lex/yacc} parsing }
+
+\bi
+\li
+\url{https://epaperpress.com/lexandyacc/download/LexAndYacc.pdf}
+\li
+\url{http://web.mit.edu/gnu/doc/html/bison_5.html}
+\li
+\url{https://github.com/racket/parser-tools/blob/master/parser-tools-lib/parser-tools/examples/calc.rkt}
+\ei

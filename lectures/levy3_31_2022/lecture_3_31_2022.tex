@@ -1,0 +1,640 @@
+\documentclass{beamer}
+\usetheme{Copenhagen}
+\usepackage{amsmath}
+\usepackage{qtree}
+%Information to be included in the title page:
+\title{Simple Static Typechecking}
+\author{Geoffrey Matthews}
+\institute{Professor Emeritus}
+\date{March 31, 2022}
+\setbeamersize{text margin left=0.125in,text margin right=0.125in}
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{A Little Bit About Me}
+\begin{itemize}
+\item Born in California, grew up in the beachtown of Santa Barbara.
+\pause
+\item Ph.D. in the History and Philosophy of Science from Indiana University
+\pause
+\item Worked briefly in the defense industry for Hughes Aircraft
+\pause
+\item Professor of Computer Science at Western Washington University for 35 years
+\pause
+\item Research in Data Exploration, Visualization, Procedural Generation
+\pause
+\item Retired 2020 and moved to Virginia
+\pause
+\item Hablo Espa\~{n}ol
+\pause
+\item Eight cats
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Type Checking}
+The idea is to {\em analyze} a program {\em statically} to find
+errors that might occur when you run the program.  For example:
+\begin{itemize}
+\item Ensure that $\mathit{exp}_1$ and $\mathit{exp}_2$ are both type $\text{Int}$ in every case of
+\begin{align*}
+\mathit{exp}_1 + \mathit{exp}_2
+\end{align*}
+\item Ensure that $\mathit{exp}_1$ and $\mathit{exp}_2$ are both type $\text{Bool}$ in every case of
+\begin{align*}
+\mathit{exp}_1 \text{ Or } \mathit{exp}_2
+\end{align*}
+\item Ensure that $\mathit{exp}_1$ is type $\text{Bool}$ in every case of
+\begin{align*}
+\text{If }\mathit{exp}_1 \text{ Then } \mathit{exp}_2 \text{ Else } \mathit{exp}_3
+\end{align*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Recursive type checking}
+
+\begin{verbatim}
+(12 < 2) Or (true Or false)
+\end{verbatim}
+\Tree
+  [.bool
+    [.bool 
+      [.int {12} ]
+      {$<$}
+      [.int {2} ]
+      ]
+    {\tt Or}
+    [.bool
+      [.bool {\tt true} ]
+      {\tt Or}
+      [.bool {\tt false} ]
+      ]
+      ]
+      
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Recursive type checking}
+
+\begin{verbatim}
+(12 + 2) Or (true Or false)
+\end{verbatim}
+\Tree
+  [.fail
+    [.int 
+      [.int {12} ]
+      {$+$}
+      [.int {2} ]
+      ]
+    {\tt Or}
+    [.bool
+      [.bool {\tt true} ]
+      {\tt Or}
+      [.bool {\tt false} ]
+      ]
+      ]
+      
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Recursive type checking}
+
+\begin{verbatim}
+(12 + 2) - (x Or y)
+\end{verbatim}
+\Tree
+  [.fail
+    [.int 
+      [.int {12} ]
+      {$+$}
+      [.int {2} ]
+      ]
+    {$-$}
+    [.fail
+      [.int {x} ]
+      {\tt Or}
+      [.int {y} ]
+      ]
+      ]
+      
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{The language of Homework 5 has nothing to check!}
+\begin{itemize}
+\item The {\bf parser} ensures that only Bool expressions occur
+in {\tt IF} and {\tt WHILE}
+\item Only Int expressions can occur in assignments to variables
+\item Only numbers, variables and arithmetic operators can occur
+on the RHS of assignments
+\item No program with a type error can even be parsed!
+\item My original idea was to add boolean variables,\\ but I got a much better idea.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Quick review of {\tt Lambda} expressions}
+My syntax:
+\[
+\underbrace{
+  \text{\tt [ }
+  \underbrace{\text{\tt \textbackslash x \{ x + 1\}}}_{\text{function}}
+  \underbrace{\text{\tt (3 * 5)}}_{\text{argument}}
+  \text{ \tt ]}
+}_{\text{application}}
+\]
+\pause
+\begin{itemize}
+\item \verb|[ \x { x + 1 } (3 * 5) ]|  $\Rightarrow$ \pause \verb|  16| \pause
+\item \verb|[ \f { [f 3] } \x { 2 * x } ]|  $\Rightarrow$ \pause \verb|  6|\pause
+\item \verb|[ \x { \y { x + y} } 3 ]|  $\Rightarrow$ \pause \verb|\y { 3 + y }| \pause
+\end{itemize}
+\begin{itemize}
+\item \verb|\x { x + 1 }|  :: \pause {\tt (int -> int)}\pause
+\item \verb|\x { \y { x + y } }| :: \pause {\tt (int -> (int -> int))} \pause
+\item \verb|\f { [f 3] }| :: \pause {\tt ((int -> ??) -> ??)}
+\end{itemize}
+\pause
+To do static  recursive typechecking, we need 
+{\bf typed lambda expressions}.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typed {\tt Lambda} expressions}
+My syntax:
+\[
+\underbrace{
+  \text{\tt [ }
+  \underbrace{\text{\tt \textbackslash x:int \{ x + 1\}}}_{\text{function}}
+  \underbrace{\text{\tt (3 * 5)}}_{\text{argument}}
+  \text{ \tt ]}
+}_{\text{application}}
+\]
+\pause
+
+\begin{itemize}
+\item \verb|\f:(int -> int) { [f 3] }| :: \pause {\tt ((int -> int) -> int)}
+\item \verb|\f:(int -> (int -> int)) { [f 3] }| :: \pause \\
+{\tt ((int -> (int -> int)) -> (int -> int))}
+\item \verb|\f:((int -> int) -> int) { [f x] }| :: \pause \\
+{\tt (((int -> int) -> int) -> int)}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typed {\tt lambda} expressions and applications in our language}
+
+\begin{verbatim}
+f := \x:int {x+1};  x := [f 3]   
+         
+g := [\x:int {\y:int {x+y}} 4];  x := [g 5]
+
+j := \f:(int->int){\y:int{ [f y] };
+k := [j \x:int { 2*x }];
+x := [k 5]
+
+x := [[\x:int { \y:int {x + y} } 13] 12]
+y := [\x:int { [\y:int {x + y} 13] } 12]
+
+\end{verbatim}
+\pause
+Are all of these type safe?
+
+\pause
+You will learn how to add {\tt lambda}s to your 
+interpreters very soon.\\ Today we'll just do a typechecker for them.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Two new types of Arithmetic Expressions for Parsing}
+\begin{verbatim}
+data AExp =
+   Var String
+ | Num Int
+ | Plus AExp AExp
+ | Times AExp AExp 
+ | Neg AExp
+ | Div AExp AExp
+ | Lambda String Type AExp  --NEW
+ | App AExp AExp            --NEW
+  deriving (Show, Eq)
+\end{verbatim}
+
+\vfill
+\begin{itemize}
+\item
+We won't talk about the parsing today.
+\item
+{\tt AExp} are not always numbers anymore!
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Example typechecking}
+Expressions
+\begin{verbatim}
+[\x:int {99} 22] + 3                       --accept
+[\x:(int->int) {99} 22]                    --reject
+[\x:(int->int) {[x 2]} 9]                  --reject
+[\x:(int->int) {[x 2]} \x:int{9}]          --accept
+[\x:(int->int) {x + 2} \x:int{9}]          --reject
+\end{verbatim}
+Programs
+\begin{verbatim}
+x := \x:int{x+1};
+IF x < 2 THEN y := 3 ELSE y := 4;          --reject
+
+x := 3; 
+z := [\y:int {x + y} 5]; 
+w := x + y                                 --reject
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{A type for types}
+\begin{verbatim}
+data Type =
+     BoolType
+   | IntType
+   | LambdaType Type Type
+   | FailureType 
+    deriving (Show, Eq)
+
+type TypeStore = Map.Map VarName Type
+
+
+
+x := 5; y := \x:int {x+x};  z := \x:(int->int) { [x 4] }
+\end{verbatim}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Typechecking Statements}
+\begin{verbatim}
+typeCheckStmt :: (Stmt AExp BExp) -> TypeStore 
+                              -> (Bool, TypeStore)
+typeCheckStmt program store =
+ case program of
+  ...
+  Seq s1 s2 ->
+    let (s1Good, store') = typeCheckStmt s1 store
+    in if not s1Good
+       then (False, store')
+       else let (s2Good, store'')  = typeCheckStmt s2 store'
+            in (s2Good, store'')
+  ...
+
+
+x := 5; y := \w:int {x+w};  z := [y x]
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typechecking Statements}
+\begin{verbatim}
+typeCheckStmt :: (Stmt AExp BExp) -> TypeStore 
+                              -> (Bool, TypeStore)
+typeCheckStmt program store =
+  case program of
+    ...
+    Skip -> (True, store)
+    ...
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typechecking Statements}
+\begin{verbatim}
+typeCheckStmt :: (Stmt AExp BExp) -> TypeStore 
+                              -> (Bool, TypeStore)
+typeCheckStmt program store =
+ case program of
+  ...    
+  If b s1 s2 ->
+    let (bType, store') = findTypeBExp b store in
+    if bType /= BoolType
+    then (False, store')
+    else let (s1Good, store'') = typeCheckStmt s1 store' in
+       if not s1Good
+       then (False, store'')
+       else let (s2Good, store''') = typeCheckStmt s1 store''
+       in (s2Good, store''')
+       -- Do you see a problem here?
+\end{verbatim}
+\pause
+\begin{verbatim}
+IF a < b THEN z := 3 ELSE z := \x:int{x+1} END; w := z + 1
+\end{verbatim}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Typechecking Statements}
+\begin{verbatim}
+typeCheckStmt :: (Stmt AExp BExp) -> TypeStore 
+                              -> (Bool, TypeStore)
+typeCheckStmt program store =
+ case program of
+  ...
+    While b s ->
+      let (bType, store') = findTypeBExp b store in 
+      if bType /= BoolType
+      then (False, store')
+      else let (sGood, store'') = typeCheckStmt s store' in
+          (sGood, store'')   
+  ...
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typechecking Statements}
+\begin{verbatim}
+typeCheckStmt :: (Stmt AExp BExp) -> TypeStore 
+                              -> (Bool, TypeStore)
+typeCheckStmt program store =
+ case program of
+  ...
+    Assign x val ->
+      let (valType, store') = findTypeAExp val store
+      in if valType /= FailureType
+         then (True, Map.insert x valType store')
+         else (False, store)
+  ...
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typechecking Boolean Expressions}
+\begin{verbatim}
+findTypeBExp :: (BExp AExp) -> TypeStore 
+                     -> (Type, TypeStore)
+findTypeBExp b store =
+  case b of
+    ...
+    Bool x -> (BoolType, store)
+    ...
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typechecking Boolean Expressions}
+\begin{verbatim}
+findTypeBExp :: (BExp AExp) -> TypeStore 
+                    -> (Type, TypeStore)
+findTypeBExp b store =
+  case b of
+    ...
+    Or x y -> 
+    let (t, store') = (findTypeBExp x store) in
+    if t /= BoolType
+    then (FailureType, store')
+    else let (t', store'') = (findTypeBExp y store') in
+                if t' /= BoolType
+                then (FailureType, store'')
+                else (BoolType, store'')
+    ...
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typechecking Boolean Expressions}
+\begin{verbatim}
+findTypeBExp :: (BExp AExp) -> TypeStore 
+                        -> (Type, TypeStore)
+findTypeBExp b store =
+  case b of
+    ...
+    Lt x y ->
+     let (t, store') = (findTypeAExp x store) in
+     if t /= IntType
+     then (FailureType, store')
+     else let (t', store'') = (findTypeAExp y store') in
+                if t' /= IntType
+                then (FailureType, store'')
+                else (BoolType, store'')
+    ...
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typechecking Arithmetic Expressions}
+\begin{verbatim}
+findTypeAExp :: AExp -> TypeStore -> (Type, TypeStore)
+findTypeAExp a store =
+ case a of
+  ...
+  Num x -> (IntType, store)
+  ...
+\end{verbatim}
+
+\vfill
+\pause
+Next: What if it's a variable?
+\begin{verbatim}
+data AExp =
+  ...
+  Var String
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typechecking Arithmetic Expressions}
+\begin{verbatim}
+findTypeAExp :: AExp -> TypeStore -> (Type, TypeStore)
+findTypeAExp a store =
+ case a of
+  ...
+  Var x -> (Map.findWithDefault FailureType x store, store)
+  ...
+\end{verbatim}
+
+
+\vfill
+\pause
+
+Next: What if it's a {\tt Plus}?
+\begin{verbatim}
+data AExp =
+  ... Plus AExp AExp
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typechecking Arithmetic Expressions}
+\begin{verbatim}
+findTypeAExp :: AExp -> TypeStore -> (Type, TypeStore)
+findTypeAExp a store =
+ case a of
+  ...
+    Plus x y -> 
+    let (t, store') = (findTypeAExp x store) in
+      if t /= IntType 
+      then (FailureType, store')
+      else let (t', store'') = (findTypeAExp y store') in
+                     if t' /= IntType
+                     then (FailureType, store'')
+                     else (IntType, store'')
+  ...
+\end{verbatim}
+
+
+\vfill
+\pause
+
+Next: What if it's a {\tt Lambda}?
+\begin{verbatim}
+data AExp = ... Lambda String Type AExp
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typechecking Arithmetic Expressions}
+\begin{verbatim}
+findTypeAExp :: AExp -> TypeStore -> (Type, TypeStore)
+findTypeAExp a store =
+ case a of
+  ...
+    Lambda s t a -> 
+    let (t', store') = 
+       findTypeAExp a (Map.insert s t store) 
+       in (LambdaType t t', store)                    
+                     -- Why not store' ?
+  ...
+\end{verbatim}
+
+
+\vfill
+\pause
+
+Next: What if it's a application of a function?
+\begin{verbatim}
+data AExp =
+  ...
+  App AExp AExp
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Typechecking Arithmetic Expressions}
+\begin{verbatim}
+findTypeAExp :: AExp -> TypeStore -> (Type, TypeStore)
+findTypeAExp a store =
+ case a of
+  ...
+    App f x -> 
+    let (t,store') = (findTypeAExp f store) in
+      case t of
+        LambdaType t1 t2 -> 
+           let (t',store'') = (findTypeAExp x store) in
+           if t1 == t'
+           then (t2, store)
+           else (FailureType, store)
+        _ (FailureType, store)
+                 
+                 -- what about store' or store''?
+  ...
+\end{verbatim}
+
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Typed recursive functions}
+What type information do you need to typecheck recursive functions?
+\begin{verbatim}
+REC f := \x:int { [ f (x+1) ] }
+
+f :: (int -> ??)
+\end{verbatim}
+
+\pause
+\begin{verbatim}
+REC f := int \x:int { [ f (x+1) ] }
+\end{verbatim}
+
+\begin{verbatim}
+f :: (int -> int)
+\end{verbatim}
+
+\begin{verbatim}
+REC f := (int -> int) \x:int { [ f (x+1) ] }
+\end{verbatim}
+\pause
+\begin{verbatim}
+f :: (int -> (int -> int))
+\end{verbatim}
+\pause
+Recursive typechecking will be one of your exercises today.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Without typechecking, recursion totally unnecessary!}
+
+Recursive version:
+\begin{verbatim}
+f1 := \x { If x < 1 Then 1 Else x * [f1 (x-1)] End};
+[f1 5];
+\end{verbatim}
+
+\bigskip
+
+Doing the same thing without recursion:
+\begin{verbatim}
+f2 := \g {\x {If x < 1 Then 1 Else x * [[g g] (x-1)] End} };
+[[f2 f2] 5]
+\end{verbatim}
+
+\pause
+
+This can actually be done in {\bf Scheme}, which has no static typechecking.
+
+It cannot be done in Haskell.  Why not?
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Your Turn!}
+Write typecheckers for these expressions and statements.
+\begin{enumerate}
+\item
+\begin{verbatim}
+IF x < 4 THEN 8 + x ELSE x + 9 END
+\end{verbatim}
+\item
+\begin{verbatim}
+LET x = 2 + 2 IN x + x END
+\end{verbatim}
+\item
+\begin{verbatim}
+REC f := int \x:int { [f x+1] }
+\end{verbatim}
+\item
+\begin{verbatim}
+REC f = int \x:int { [f x+1] } IN [f 3] END
+\end{verbatim}
+\end{enumerate}
+
+I've done the parsing for you, \\just add clauses  to the
+{\tt findTypeAExp} and {\tt typeCheckStmt} function.
+\begin{verbatim}
+data AExp = ...
+  | Let String AExp AExp 
+  | IfExp (BExp AExp) AExp AExp  
+  | RecExp String Type String Type AExp AExp 
+  ...
+data Stmt a b = 
+  | RecAssign VarName Type VarName Type a
+  ...
+\end{verbatim}
+\end{frame}
+
+\end{document}
+

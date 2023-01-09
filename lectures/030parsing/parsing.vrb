@@ -1,0 +1,18 @@
+\frametitle{ Interpreting {\em vs.} Interpreted Language }
+
+\bi
+\li We will be using Scheme syntax for both languages.
+\li Racket allows you to use any brackets: \verb|()[]{}|
+\li We will use only braces \verb|{}| in the interpreted
+languages.
+\li Our interpreter will be written useing round and square
+brackets \verb|()[]|
+\li Scheme program:
+\begin{verbatim}
+    (+ (- 3 2) 5)
+\end{verbatim}
+\li Interpreted language program:
+\begin{verbatim}
+    {+ {- 3 2} 5}
+\end{verbatim}
+\ei

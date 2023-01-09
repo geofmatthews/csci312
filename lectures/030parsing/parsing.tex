@@ -1,0 +1,264 @@
+\documentclass{beamer}
+\usetheme{Singapore}
+\usepackage{changepage}
+
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage{amssymb,latexsym}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage{hyperref}
+\usepackage{fancybox}
+\usepackage[listings]{tcolorbox}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    language=Lisp,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    escapechar=|,
+    frame=single
+}
+
+\lstset{style=mystyle}
+
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\li}{\item}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\Show}[1]{
+\begin{center}
+\shadowbox{\begin{minipage}{0.8\textwidth}
+          #1
+          \end{minipage}}
+\end{center}
+}
+\newcommand{\arrow}{\ensuremath{\rightarrow}}
+
+\newcommand{\uparr}{\ensuremath{\uparrow}}
+
+
+\newcommand{\fig}[2]{\centerline{\includegraphics[width=#1\textwidth]{#2}}}
+
+\newcommand{\bfr}[1]{\begin{frame}[fragile]\frametitle{{ #1 }}}
+\newcommand{\efr}{\end{frame}}
+
+\newcommand{\cola}{\begin{columns}\begin{column}{0.5\textwidth}}
+\newcommand{\colb}{\end{column}\begin{column}{0.5\textwidth}}
+\newcommand{\colc}{\end{column}\end{columns}}
+
+
+\title{Parsing}
+\author{Geoffrey Matthews}
+
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+\bfr{Modeling Syntax}
+\bi
+\li \lstinline{3 + 4} 
+\li \lstinline{3 4 +}
+\li \lstinline{(+ 3 4)}
+\ei
+\pause
+\begin{lstlisting}
+(define-type AE
+  [num (n number?)]
+  [add (lhs AE?) (rhs AE?)]
+  [sub (lhs AE?) (rhs AE?)])
+\end{lstlisting}
+  
+
+\begin{lstlisting}  
+(add (num 3) (num 4))
+\end{lstlisting}
+
+\end{frame}
+
+\bfr{Modeling Syntax}
+\bi
+\li \lstinline{(3 - 4) + 7} 
+\li \lstinline{3 4 - 7 +}
+\li \lstinline{(+ (- 3 4) 7)}
+\ei
+\begin{lstlisting}
+(define-type AE
+  [num (n number?)]
+  [add (lhs AE?) (rhs AE?)]
+  [sub (lhs AE?) (rhs AE?)])
+\end{lstlisting}
+  
+
+\pause
+\begin{lstlisting}  
+(add (sub (num 3) (num 4))
+     (num 7))
+\end{lstlisting}
+\end{frame}
+
+
+\bfr{Read}
+\begin{lstlisting}
+> (read)
+hello
+'hello
+> (read)
+(+ 3 (- 4 5))
+'(+ 3 (- 4 5))
+> 'hello
+'hello
+> '(+ 3 (- 4 5))
+'(+ 3 (- 4 5))
+\end{lstlisting}
+
+\end{frame}
+
+\bfr{Read in Python}
+\begin{lstlisting}
+def parse(s):
+    skip_blanks(s)
+    if s[0] in string.digits:
+        return parse_number(s)
+    elif s[0] not in punctuation:
+        return parse_symbol(s)
+    elif s[0] == '(':
+        s.pop(0)
+        return parse_list(s)
+\end{lstlisting}
+
+\end{frame}
+
+\bfr{Read in Python}
+\begin{lstlisting}
+def parse_number(s):
+    skip_blanks(s)
+    n = 0
+    while s and s[0] in string.digits:
+        n = n*10 + int(s.pop(0))
+    return n
+
+def parse_symbol(s):
+    skip_blanks(s)
+    w = ''
+    while s and s[0] not in punctuation:
+        w += s.pop(0)
+    return w
+\end{lstlisting}
+
+\end{frame}
+
+\bfr{Read in Python}
+\begin{lstlisting}
+def parse_list(s):
+    skip_blanks(s)
+    if s[0] == ')':
+        s.pop(0)
+        return []
+    car = parse(s)
+    cdr = parse_list(s)
+    return [car] + cdr
+\end{lstlisting}
+\end{frame}
+
+\bfr{Homework:  rewrite read in Scheme}
+
+\bi
+\li Translate into pure functional style:
+\bi
+\li No assignments statements.
+\li No destructive operations (e.g. {\tt pop}).
+\li No loops except recursion.
+\ei
+\li You will need to return two values:  
+\bi
+\li the parsed object
+\li the remainder of the string
+\ei
+\li You need only handle the subset of Scheme handled
+by our Python implementation.
+\ei
+
+\end{frame}
+
+\bfr{Parsing Scheme into datatypes}
+
+\begin{lstlisting}
+;; parse : sexp -> AE
+;; to convert s-expressions into AEs
+
+(define (parse sexp)
+  (cond [(number? sexp) (num sexp)]
+        [(list? sexp)
+         (case (first sexp)
+           [(+) (add (parse (second sexp))
+                     (parse (third sexp)))]
+           [(-) (sub (parse (second sexp))
+                     (parse (third sexp)))])]))
+\end{lstlisting}
+
+\begin{lstlisting}
+> (parse '(+ 2 2))
+(add (num 2) (num 2))
+> (parse '(+ (- 2 3) 5))
+(add (sub (num 2) (num 3)) (num 5))
+> (parse '(+ (- 2 3) (- 12 3)))
+(add
+ (sub (num 2) (num 3))
+ (sub (num 12) (num 3)))
+\end{lstlisting}
+\end{frame}
+
+\bfr{Jobs for {\tt read} and {\tt parse}}
+\bi
+\li {\tt read} will reject the first,
+\li {\tt parse}
+will reject the second:
+\begin{lstlisting}
+  (+ 2 3 }
+  (+ 2 3 4)
+\end{lstlisting}
+\ei
+
+\end{frame}
+
+\bfr{Interpreting {\em vs.} Interpreted Language}
+
+\bi 
+\li We will be using Scheme syntax for both languages.
+\li Racket allows you to use any brackets: \verb|()[]{}|
+\li We will use only braces \verb|{}| in the interpreted
+languages.
+\li Our interpreter will be written useing round and square
+brackets \verb|()[]|
+\li Scheme program:
+\begin{verbatim}
+    (+ (- 3 2) 5)
+\end{verbatim}
+\li Interpreted language program:
+\begin{verbatim}
+    {+ {- 3 2} 5}
+\end{verbatim}
+\ei
+\end{frame}
+\end{document}

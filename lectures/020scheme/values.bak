@@ -1,0 +1,6 @@
+#lang plai
+
+(define foo
+  (lambda (x) (values x (* x x))))
+
+(let-values (((a b) (foo 3))) (list a b))

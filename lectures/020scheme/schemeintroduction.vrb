@@ -1,0 +1,38 @@
+\frametitle{ Unit testing }
+\cola
+\begin{lstlisting}[title=arithmetic.rkt]
+#lang plai
+
+(define slow+
+  (lambda (a b)
+    (if (zero? a) b
+        (slow+ (sub1 a)
+               (add1 b)))))
+
+(define slow*
+  (lambda (a b)
+    (if (zero? a) 0
+        (slow+ b
+          (slow*
+            (sub1 a) b)))))
+
+\end{lstlisting}
+\colb
+\begin{lstlisting}[title=arithmetic-test.rkt]
+#lang plai
+
+(require rackunit
+         "arithmetic.rkt")
+
+;; These provided by plai:
+(test (slow+ 4 5) 9)
+(test (slow* 4 5) 21)
+
+;; These by rackunit:
+(check-equal?
+  (slow+ 4 5) 9)
+(check-equal?
+  (slow* 4 5) 21)
+
+\end{lstlisting}
+\colc

@@ -1,0 +1,13 @@
+\frametitle{ Our InterpretING Language: Scheme }
+
+\bi
+\li \url{https://docs.racket-lang.org/index.html}
+\bi\li Work through the {\em Quick} tutorial\ei
+\li \url{https://ds26gte.github.io/tyscheme/}
+\bi\li Work through Chapters 1 to 6: Recursion
+\li Note that we use Racket instead of mzscheme\ei
+\li \url{https://www.scheme.com/tspl4/}
+\bi\li Work through Chapters 1 and 2
+\li Note that we use Racket instead of chez scheme\ei
+\ei
+

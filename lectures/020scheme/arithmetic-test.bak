@@ -1,0 +1,6 @@
+#lang plai
+
+(require "arithmetic.rkt")
+
+(test (slow+ 4 5) 9)
+(test (slow* 4 5) 20)

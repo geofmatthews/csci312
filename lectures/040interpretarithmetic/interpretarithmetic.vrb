@@ -1,0 +1,17 @@
+\frametitle{ Modeling Syntax }
+
+\begin{lstlisting}
+(define-type AE
+  [num (n number?)]
+  [add (left AE?) (right AE?)]
+  [sub (left AE?) (right AE?)])
+
+;; calc : AE -> number
+(define (calc an-ae)
+  (type-case AE an-ae
+             [num (n) n]
+             [add (l r) (+ (calc l) (calc r))]
+             [sub (l r) (- (calc l) (calc r))]))
+
+\end{lstlisting}
+

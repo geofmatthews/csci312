@@ -1,0 +1,322 @@
+#lang plai
+(require racket/trace)
+;; CSCI 312 
+;; Beginning Scheme Programming
+;; Geoffrey Matthews
+
+(define astring 
+  "foobuz
+basssssssssssssss @#$@#@$")
+
+(display "Difference between display and print:\n")
+
+(display astring)
+(newline)
+
+(print astring)
+(newline) ;; Notice neither prints a newline by itself
+
+(printf "Formatted output of things:\n ~a and other things: ~a\n" 'aThing 1234)
+
+
+
+(display "Two ways to define procedures:\n")
+
+(define (square1 x) (* x x))
+(define square2 (lambda (x) (* x x)))
+;; We will use the second way.
+
+;; simple unit tests:
+(define testnumber 23423)
+(test (square1 testnumber)
+      (square2 testnumber))
+
+(display "Rational numbers and many other builtin types provided:\n")
+(test (/ 2 3)
+      2/3)
+
+(display "Two ways to quote things:\n")
+(test 
+ '(1 2 3 a b c)
+ (quote (1 2 3 a b c)))
+;; We will use the first way
+
+;; quoted lists represent list structures
+;; run boxarrow.rkt
+
+(display "Dot notation vs. list notation:\n")
+
+(test '(1 . (2 . (3 . ())))
+      '(1 2 3)
+      )
+(test (cons 3 (cons 2 (cons 1 '())))
+      (list 3 2 1)
+      )
+
+;; Make sure you can also draw box and arrow diagrams for random collections
+;; of cons cells, lists, dotted lists, etc.  For example, how would this
+;; look internally, and how does it print out?
+
+(display "How do these print:\n")
+(cons (cons 'a 'b) (list (list 'c (cons 'd 'e) (cons 'f (list 'g)))))
+(list 1 (list 2 (list 3 (list 4 5))))
+(cons 1 (cons 2 (cons 3 (cons 4 5))))
+
+(display "car's and cdr's can be smashed together:\n")
+
+(define testlist '((a b) ((c d) e (f (g)))))
+(test (cdr (car (cdr testlist)))
+      (cdadr testlist))
+
+(display "let introduces local variables:\n")
+
+(let ((x 3)
+      (y 4))
+  (test (* x y)
+        (* 3 4)))
+
+;; This doesn't work:
+#|
+(let ((x 3)
+      (y (* 5 x)))
+   (* x y))
+|#
+
+(display "Use nested let's if you want new variables to depend on each other:\n")
+(let ((x 3))
+  (let ((y (* 5 x)))
+    (* x y)))
+
+(display "Shadowed variables:\n")
+(let ((b 99999))
+  (let ((a 100)
+        (b 1000)
+        (c 10000))
+    (+ a b c)))
+
+(let ((b 99999))
+  (+ (let ((a 100)
+           (b 1000)
+           (c 10000))
+       (+ a b c))
+     b))
+
+(display "Functions are first class values: ")
+
+(let ((f (lambda (g x) (+ (* 2 x) (g x)))))
+  (f (lambda (y) (* 3 y)) 5))
+(test
+ (let ((+ *)) (+ 3 3))
+ (* 3 3))
+
+(display "lambda and let are similar:\n")
+
+(test
+ (let ((x 3) (y 4)) (list 5 x y))
+ ((lambda (x y) (list 5 x y)) 3 4))
+
+(display "Free variables can be captured by lambda:\n")
+
+(let ((x 'sam))
+  (let ((f (lambda (y z) (list x y z))))
+    (f 'i 'am)))
+
+(display "Free variables remain captured even when shadowed:\n")
+(let ((x 'sam))
+  (let ((f (lambda (y z) (list x y z))))
+    (let ((x 'mary))
+      (f 'i 'am))))
+
+(display "lambda creates a closure:\n")
+(define f1
+  (let ((x 'sam))
+    (lambda (y z) (list x y z))))
+
+(f1 'i 'am)
+(define x 'nobody)
+(f1 'i 'am)
+
+(display "We can make objects with local state:\n")
+
+(define counter
+  (let ((n 0))
+    (lambda ()
+      (set! n (+ n 1))
+      n)))
+
+(counter)
+(counter)
+(counter)
+(counter)
+
+(display "Functions can return functions:\n")
+
+(define adder
+  (lambda (x)
+    (lambda (y) (+ x y))))
+
+(define f (adder 10))
+(define g (adder 100))
+(list (f 3) (f 5) (g 3) (g 5))
+(list ((adder 8) 9) 
+      ((adder 4) 5)
+      ((adder 1000) 10))
+(test 
+ ((adder ((adder ((adder 1) 2)) 3)) 4)
+ ((adder 1) ((adder 2) ((adder 3) 4)))
+ )
+
+(display "This is called Currying a function--taking a many-argument function 
+and turning it into a one argument function.\n")
+
+
+(display "We can use closures to store local data:\n")
+(define triple
+  (lambda (a b c)
+    (lambda (op)
+      (cond ((eqv? op 'first) a)
+            ((eqv? op 'second) b)
+            ((eqv? op 'third) c)))))
+
+(define a (triple 5 9 20))
+(define b (triple 'hello 'goodbye 'whatever))
+(list (a 'first) (b 'second) (a 'third) (b 'first))
+
+
+(display "We can use closures to create objects like stacks:\n")
+(define stack
+  (lambda ()
+    (let ((the-stack '()))
+      (lambda (op . args)
+        (cond ((eq? op 'push)
+               (set! the-stack (cons (car args) the-stack)))
+              ((eq? op 'pop)
+               (let ((top (car the-stack)))
+                 (set! the-stack (cdr the-stack))
+                 top))
+              (else
+               (error "Unknown stack operator:  ~a" op)))))))
+
+(define s1 (stack))
+(define s2 (stack))
+(for-each (lambda (x) (s1 'push x)) '(a b c d e f g))
+(for-each (lambda (x) (s2 'push x)) '(anne bob carol dave ethan fred))
+
+(display (list (s1 'pop) (s1 'pop) (s1 'pop) (s2 'pop) (s2 'pop) (s2 'pop)))
+
+
+(display "List recursion:\n")
+(define list-length
+  (lambda (lst)
+    (if (null? lst) 0
+        (+ 1 (list-length (cdr lst))))))
+(trace list-length)
+(list-length '(a b c d))
+
+(display "Tail recursion:\n")
+(define list-length-tail
+  (lambda (lst result)
+    (if (null? lst) result
+        (list-length-tail (cdr lst) (+ 1 result)))))
+(trace list-length-tail)
+(list-length-tail '(a b c d) 0)
+
+(display "Nontail copy  vs. tail copy:\n")
+(define list-copy
+  (lambda (lst)
+    (if (null? lst) '()
+        (cons (car lst)
+              (list-copy (cdr lst))))))
+(trace list-copy)
+(list-copy '(a b c d))
+
+(define list-copy-tail
+  (lambda (lst result)
+    (if (null? lst) (reverse result)
+        (list-copy-tail (cdr lst) (cons (car lst) result)))))
+(trace list-copy-tail)
+(list-copy-tail '(a b c d) '())
+
+
+
+(display "Tree recursion:\n")
+(define tree-copy
+  (lambda (tree)
+    (if (not (pair? tree))
+        tree
+        (cons (tree-copy (car tree))
+              (tree-copy (cdr tree))))))
+(trace tree-copy)
+(tree-copy '(((a)) (b)))
+
+
+(display "Named let simplifies some things:\n")
+(display "With named function:\n")
+(define fib
+  (lambda (n)
+    (if (< n 2) 1
+        (+ (fib (- n 2))
+           (fib (- n 1))))))
+(fib 10)
+(display "With named let:\n")
+(let fib ((n 10))
+  (if (< n 2) 1
+      (+ (fib (- n 2))
+         (fib (- n 1)))))
+
+(display "A random named let example, for simple loops:\n")
+(let foo ((x 0) (y 1) (z '()))
+  (if (> x 4)
+      (list x y z)
+      (foo (+ x 1) (* y 2) (cons 'ha z))))
+
+(display "Same thing with do:\n")
+(do ((x 0 (+ x 1))
+     (y 1 (* y 2))
+     (z '() (cons 'ha z)))
+  ((> x 4) (list x y z)))
+
+(display "Demonstration of define-type from PLAI book:\n")
+
+;; Datatypes for 2d shapes, from plai language
+
+(define-type position
+  (2d (x number?) (y number?))
+  (3d (x number?) (y number?) (z number?)))
+
+(define-type shape
+  (circle (center 2d?) (radius number?))
+  (square (lower-left 2d?) (width number?) (height number?)))
+
+;; area : shape -> number
+;; Purpose: to compute the area of 2d shapes
+
+(define (area s)
+  (type-case shape s
+    (circle (center radius)
+            (* pi radius radius))
+    (square (lower-left width height)
+            (* width height))))
+
+(test (area (circle (2d 0 0) 10)) 314.159)
+(test (area (square (2d 0 0) 5 50)) 250)
+
+;; center : shape -> position
+;; Purpose : to find the center of a 2d shape
+
+(define (center s)
+  (type-case 
+      shape s
+    (circle (center radius) center)
+    (square (lower-left width height)
+            (type-case 
+                position lower-left
+              (2d (x y)
+                  (2d (+ x (/ width 2)) (+ y (/ height 2))))
+              (else (error "square shape does not have 2d position" s))))))
+
+(test (center (circle (2d 10 12) 99)) (2d 10 12))
+(test (center (square (2d 10 100) 10 100)) (2d 15 150))
+
+#|
+|#
