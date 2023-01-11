@@ -81,6 +81,8 @@
 Remember to work through the tutorials!
 
 \bi
+\li \url{https://racket-lang.org/}
+\bi\li Our implementation \ei
 \li \url{https://docs.racket-lang.org/index.html}
 \bi\li Work through the {\em Quick} tutorial\ei
 \li Also do one or more of the following:
@@ -97,6 +99,103 @@ Remember to work through the tutorials!
 
 
 \end{frame}
+
+\bfr{Basic Scheme Syntax: Literal expressions}
+\cola
+\begin{lstlisting}
+> 123
+123
+> 1.2e5
+120000.0
+> 1/3
+1/3
+> 'a
+'a
+> 'very-long-identifier
+'very-long-identifier
+> '(list of things 1 2 3)
+'(list of things 1 2 3)
+\end{lstlisting}
+\colb
+\begin{lstlisting}
+> "a string"
+"a string"
+> ")) a bad string"
+")) a bad string"
+> '99
+99
+> 99
+99
+> #t
+#t
+> '#t
+#t
+\end{lstlisting}
+\colc
+
+\end{frame}
+
+
+\bfr{Basic Scheme Syntax: Procedure calls}
+\cola
+\begin{lstlisting}
+> (+ 3 4)
+7
+> (+ 3 (* 4 5))
+23
+> (* (+ 3 4) 5)
+35
+> ((if #f + *) 3 4)
+12
+> 
+\end{lstlisting}
+\colb
+\begin{lstlisting}
+3 + 4 * 5
+\end{lstlisting}
+\colc
+
+\end{frame}
+
+\bfr{Basic Scheme Syntax: Naming things}
+\begin{lstlisting}
+> (define x 2)
+> (define y 3)
+> x
+2
+> y
+3
+> (* x y)
+6
+\end{lstlisting}
+
+\end{frame}
+\bfr{Basic Scheme Syntax: Conditionals}
+\begin{lstlisting}
+> (define x 2)
+> (define y 3)
+> (if (< x y) x y)
+2
+> (cond ((< x y) 'yes)
+        ((> x y) 'no)
+        ((= x y) 'maybe)
+        (else (error "Help!" (list x y))))
+'yes
+> 
+\end{lstlisting}
+
+\end{frame}
+
+\bfr{Basic Scheme Syntax:  Case}
+\begin{lstlisting}
+> (case (* 2 3)
+    ((2 3 5 7) 'prime)
+    ((1 4 6 8 9) 'composite))
+'composite
+> 
+\end{lstlisting}
+\end{frame}
+
 \bfr{Printing: three ways}
 \begin{lstlisting}
 (define astring 
@@ -115,6 +214,17 @@ foobuz
 basssssssssssssss @#$@#@$
 "foobuz\nbasssssssssssssss @#$@#@$"
 Formatted output: aThing and: 1234
+\end{lstlisting}
+\end{frame}
+
+\bfr{Basic Scheme Syntax:  Sequencing}
+
+\begin{lstlisting}
+> (begin (display "4 plus 1 equals ")
+         (display (+ 4 1))
+         (newline))
+4 plus 1 equals 5
+> 
 \end{lstlisting}
 \end{frame}
 \bfr{Two ways to define procedures}
@@ -507,6 +617,58 @@ and turning it into a one argument function.
 \end{lstlisting}
 \ei
 \end{frame}
+
+
+
+\bfr{Local recursive functions}
+
+\begin{lstlisting}
+(define mod2
+  (lambda (n)
+    (letrec ((even?
+              (lambda (n)
+                (if (zero? n)
+                    #t
+                    (odd? (- n 1)))))
+             (odd?
+              (lambda (n)
+                (if (zero? n)
+                    #f
+                    (even? (- n 1)))))))
+  (cond ((even? n) 0)
+        ((odd? n) 1)
+        (else 0))))
+> (mod2 2341)
+1
+\end{lstlisting}
+\end{frame}
+\bfr{Local recursive functions}
+
+\begin{lstlisting}
+> (define mod2
+    (lambda (n)
+      (define even?
+        (lambda (n)
+          (if (zero? n)
+              #t
+              (odd? (- n 1)))))
+      (define odd?
+        (lambda (n)
+          (if (zero? n)
+              #f
+              (even? (- n 1)))))
+      (cond ((even? n) 0)
+            ((odd? n) 1)
+            (else 0))))
+> (mod2 2341)
+1
+> 
+\end{lstlisting}
+
+
+\end{frame}
+
+
 \bfr{{\tt define-type} from PLAI}
 \begin{lstlisting}
 #lang plai
