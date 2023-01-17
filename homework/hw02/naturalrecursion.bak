@@ -1,0 +1,58 @@
+#lang plai
+
+(define (my-length ls)
+  (if (empty? ls)
+      0
+      (+ 1 (my-length (cdr ls)))))
+
+(test (my-length '(1 2 3)) 3)
+
+(define (my-append ls1 ls2)
+  (if (empty? ls1)
+      ls2
+      (cons (car ls1)
+            (my-append (cdr ls1) ls2))))
+
+(test (my-append '(1 2) '(3 4)) '(1 2 3 4))
+
+(define (square-all ls)
+  (if (empty? ls)
+      '()
+      (cons (expt (car ls) 2)
+            (square-all (cdr ls)))))
+
+(test (square-all '(1 2 3)) '(1 4 9))
+
+(define (add-one-all ls)
+  (if (empty? ls)
+      '()
+      (cons (add1 (car ls))
+            (add-one-all (cdr ls)))))
+
+(test (add-one-all '(1 2 3)) '(2 3 4))
+
+(define (my-map f ls)
+  (if (empty? ls)
+      '()
+      (cons (f (car ls))
+            (my-map f (cdr ls)))))
+
+(test (my-map add1 '(1 2 3)) '(2 3 4))
+(test (my-map (lambda (x) (* x x)) '(1 2 3))
+      '(1 4 9))
+
+(define (evens ls)
+  (cond ((empty? ls) '())
+        ((even? (car ls))
+         (cons (car ls) (evens (cdr ls))))
+        (else
+         (evens (cdr ls)))))
+
+(test (evens '(1 2 3 4 5 6)) '(2 4 6))
+
+(define (my-filter pred ls)
+  (cond ((empty? ls) '())
+        ((pred (car ls))
+         (cons (car ls) (my-filter pred (cdr ls))))
+        
+                     

@@ -231,14 +231,16 @@ Formatted output: aThing and: 1234
 \begin{lstlisting}
 (define (square1 x) (* x x))
 (define square2 (lambda (x) (* x x)))
-;; We will use the second way.
-
-;; simple unit tests:
-(define testnumber 23423)
-(test (square1 testnumber)
-      (square2 testnumber))
 \end{lstlisting}
+\bi
+\li  I like to use the second way.
+\li The textbook uses the first way.
+\li Simple unit tests also supported in the \lstinline{plai} language:
+\ei
 \begin{lstlisting}
+> (define testnumber 23423)
+> (test (square1 testnumber)
+        (square2 testnumber))
 (good (square1 testnumber) 548636929 548636929 "at line 31")
 \end{lstlisting}
 \end{frame}
@@ -470,6 +472,10 @@ and turning it into a one argument function.
 '(101 99)
 \end{lstlisting}
 \end{frame}
+
+
+
+
 \bfr{List recursion}
 \begin{lstlisting}
 (require racket/trace)
@@ -638,6 +644,8 @@ and turning it into a one argument function.
   (cond ((even? n) 0)
         ((odd? n) 1)
         (else 0))))
+\end{lstlisting}
+\begin{lstlisting}
 > (mod2 2341)
 1
 \end{lstlisting}
@@ -645,21 +653,21 @@ and turning it into a one argument function.
 \bfr{Local recursive functions}
 
 \begin{lstlisting}
-> (define mod2
-    (lambda (n)
-      (define even?
-        (lambda (n)
-          (if (zero? n)
-              #t
-              (odd? (- n 1)))))
-      (define odd?
-        (lambda (n)
-          (if (zero? n)
-              #f
-              (even? (- n 1)))))
-      (cond ((even? n) 0)
-            ((odd? n) 1)
-            (else 0))))
+(define (mod2 n)
+  [local
+    [(define (even? n)
+       (if (zero? n)
+           #t
+           (odd? (- n 1))))
+     (define (odd? n)
+       (if (zero? n)
+           #f
+           (even? (- n 1))))]
+    (cond ((even? n) 0)
+          ((odd? n) 1)
+          (else 0))])
+\end{lstlisting}
+\begin{lstlisting}
 > (mod2 2341)
 1
 > 
@@ -778,5 +786,12 @@ and turning it into a one argument function.
 
 \end{lstlisting}
 \colc
+\end{frame}
+\bfr{Homework 2:  Programming Scheme}
+\bi
+\li Programming puzzles in Scheme.
+\li Must use {\bf natural recursion} and not builtin Scheme functionality.
+\li Review {\tt naturalrecursion.rkt}
+\ei
 \end{frame}
 \end{document}
