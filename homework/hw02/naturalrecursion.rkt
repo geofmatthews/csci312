@@ -1,5 +1,4 @@
 #lang plai
-
 (define (my-length ls)
   (if (empty? ls)
       0
