@@ -1,0 +1,15 @@
+#lang racket
+
+(define (tree-producer tree)
+  (if (not (list? tree))
+      (let/cc k (list tree k))
+      (begin
+        (tree-producer (first tree))
+        (tree-producer (rest tree)))))
+
+(define tree1 (cons 'a (cons 'b 'c)))
+(define tree2 (cons (cons 'a 'b) 'c))
+
+(do ((i 0 (+ i 1)))
+  ((> i 4) 'done)
+  (let ((item (tree-producer tree

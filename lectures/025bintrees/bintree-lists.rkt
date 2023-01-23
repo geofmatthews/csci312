@@ -1,0 +1,61 @@
+#lang plai
+
+;   Bintree
+;   Illustrating lists as variant structures
+;   Geoffrey Matthews
+
+(define make-leaf
+  (lambda (x) (list 'leaf x)))
+
+(define make-interior-node
+  (lambda (k lf rt) (list 'interior-node k lf rt)))
+
+(define print-tree
+  (lambda (tree . depth)
+    (cond
+      ((null? depth) (print-tree tree 0))
+      ((eq? (car tree) 'leaf) 
+       (let loop ((i 0))
+         (when (< i (car depth)) (begin (display "  ") (loop (+ i 1)))))
+       (display (cadr tree))
+       (newline))
+      ((eq? (car tree) 'interior-node)
+       (let loop ((i 0))
+         (when (< i (car depth)) (begin (display "  ") (loop (+ i 1)))))
+       (display (cadr tree))
+       (newline)
+       (print-tree (caddr tree) (+ (car depth) 1))
+       (print-tree (cadddr tree) (+ (car depth) 1)))
+      (else (display "Nonexistent tree.~%")))))
+
+(define leaf-sum
+  (lambda (tree)
+    (cond ((eq? (car tree) 'leaf) (cadr tree))
+          ((eq? (car tree) 'interior-node)
+           (+ (leaf-sum (caddr tree))
+              (leaf-sum (cadddr tree))))
+          (else 0))))
+
+
+(define x 
+  (make-interior-node
+   "Fuzzy"
+   (make-interior-node 
+    "Wuzzy"
+    (make-leaf 11)
+    (make-interior-node
+     "Was"
+     (make-leaf 22)
+     (make-leaf 33)))
+   (make-interior-node
+    "A"
+    (make-interior-node
+     "Bear"
+     (make-leaf 44)
+     (make-leaf 55))
+    (make-leaf 66))))
+
+(print-tree x)
+(display "The sum is: ")
+(display (leaf-sum x))
+(newline)

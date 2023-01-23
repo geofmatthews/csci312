@@ -1,0 +1,63 @@
+;   Bintree from EOPL p. 46 in Scheme
+;   Illustrating define-datatype as variant structures
+;   Geoffrey Matthews
+;   Wed Apr  3 15:27:34 PST 2002
+;   Tested with drscheme on linux
+
+;; Language must be EOPL!
+
+(define-datatype bintree bintree?
+  (leaf
+   (datum number?))
+  (interior-node
+   (key string?)
+   (left bintree?)
+   (right bintree?)))
+
+(define print-tree
+  (lambda (tree . depth)
+    (if (null? depth) (print-tree tree 0)
+        (cases bintree tree
+          (leaf (datum)
+            (let loop ((i 0))
+              (if (< i (car depth)) (begin (display "  ") (loop (+ i 1)))))
+            (display datum) 
+            (newline))
+          (interior-node (key left right)
+            (let loop ((i 0))
+              (if (< i (car depth)) (begin (display "  ") (loop (+ i 1)))))
+            (display key)
+            (newline)
+            (print-tree left (+ (car depth) 1))
+            (print-tree right (+ (car depth) 1)))))))
+           
+(define leaf-sum
+  (lambda (tree)
+    (cases bintree tree
+           (leaf (datum) datum)
+           (interior-node (key left right)
+                          (+ (leaf-sum left) (leaf-sum right))))))
+
+(define x 
+  (interior-node
+   "Fuzzy"
+   (interior-node 
+    "Wuzzy"
+    (leaf 11)
+    (interior-node
+     "Was"
+     (leaf 22)
+     (leaf 33)))
+   (interior-node
+    "A"
+    (interior-node
+     "Bear"
+     (leaf 44)
+     (leaf 55))
+    (leaf 66))))
+
+(print-tree x)
+(display "The sum is: ")
+(display (leaf-sum x))
+(newline)
+

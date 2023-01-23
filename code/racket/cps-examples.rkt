@@ -1,0 +1,53 @@
+#lang racket
+
+;; Some random cps-transformations
+
+(define (id x) x)
+
+(define (f1 n)
+  (cond ((< n 1) 5)
+        ((even? n) (* 3 (f1 (/ n 2))))
+        (else (+ 5 (f1 (- n 1))))))
+
+(map f1 '(0 1 2 3 4 5))
+
+(define (f1/k n k)
+  (cond ((< n 1) (k 5))
+        ((even? n) (f1/k (/ n 2) 
+                         (lambda (result) (k (* 3 result)))))
+        (else (f1/k (- n 1)
+                    (lambda (result) (k (+ 5 result)))))))
+
+(map (lambda (x) (f1/k x id)) '(0 1 2 3 4 5))
+
+(define (f2 n)
+  (cond ((< n 1) (list 99))
+        ((even? n) (cons n (f2 (/ n 2))))
+        (else (list (f2 (- n 1)) (f2 (/ (- n 1) 2))))))
+
+(map f2 '(0 1 2 3 4 5))
+
+(define (f2/k n k)
+  (cond ((< n 1) (k (list 99)))
+        ((even? n) (f2/k (/ n 2) (lambda (result) (k (cons n result)))))
+        (else (f2/k (- n 1)
+                  (lambda (result1)
+                    (f2/k (/ (- n 1) 2)
+                        (lambda (result2)
+                          (k (list result1 result2)))))))))
+
+(map (lambda (x) (f2/k x id)) '(0 1 2 3 4 5))
+
+(define (f3 n)
+  (cond ((= n 1) (begin (print 1) (newline)))
+        ((even? n) (begin (print n) (newline) (f3 (/ n 2))))
+        (else (begin (print n) (newline) (f3 (+ (* 3 n) 1))))))
+
+(f3 7)
+
+(define (f3/k n k)
+  (cond ((= n 1) (k (begin (print 1) (newline))))
+        ((even? n) (begin (print n) (newline) (f3/k (/ n 2) k)))
+        (else (begin (print n) (newline) (f3/k (+ (* 3 n) 1) k)))))
+
+(f3/k 7 id)

@@ -1,0 +1,114 @@
+#lang racket
+
+(define pair (lambda (a) (lambda (b) (lambda (s) ((s a) b)))))
+(define left (lambda (a) (lambda (b) a)))
+(define right (lambda (a) (lambda (b) b)))
+(define mycar (lambda (p) (p left)))
+(define mycdr (lambda (p) (p right)))
+
+(define x ((pair 9) ((pair 10) ((pair 11) empty))))
+
+(mycar (mycdr (mycdr x)))
+
+(define-syntax myif
+  (syntax-rules ()
+    ((myif c t f) (c (delay t) (delay f)))))
+
+(define yes (lambda (t f) (force t)))
+(define no (lambda (t f) (force f)))
+
+(myif yes (print 'ho) (print 'ha)) (newline)
+(myif no (print 'ho) (print 'ha)) (newline)
+
+(define zero (lambda (f) (lambda (x) x)))
+(define one (lambda (f) (lambda (x) (f x))))
+(define two (lambda (f) (lambda (x) (f (f x)))))
+(define three (lambda (f) (lambda (x) (f (f (f x))))))
+
+(define succ (lambda (n) (lambda (f) (lambda (x) (f ((n f) x))))))
+(define sum (lambda (m) (lambda (n) ((n succ) m))))
+(define prod (lambda (m) (lambda (n) ((n (sum m)) zero))))
+(define pred (lambda (n)
+               (mycar
+                ((n (lambda (p) ((pair (mycdr p))
+                                 (succ (mycdr p)))))
+                 ((pair zero) zero)))))
+(define iszero? (lambda (n)
+                  ((n (lambda (ignore) no)) yes)))
+
+(define exp1 (lambda (m) (lambda (n) ((n (prod m)) one))))
+(define exp2 (lambda (m) (lambda (n) (n m))))
+
+(define (translate n) ((n add1) 0))
+(translate zero)
+(translate one)
+(translate two)
+(translate three)
+(translate (succ (succ one)))
+(translate ((sum two) three))
+(translate ((prod two) three))
+(translate (pred zero))
+(translate (pred one))
+(translate (pred three))
+(translate (pred ((prod three) three)))
+(translate ((exp1 three) three))
+(translate ((exp2 three) three))
+
+(define mk-fact
+  (lambda (f)
+    (lambda (n)
+      (if (zero? n)
+          1
+          (* n ((f f) (sub1 n)))))))
+(define fact (mk-fact mk-fact))
+
+((mk-fact mk-fact) 5)
+(fact 5)
+
+(define fact2
+  ((lambda (mk-fact)
+     (mk-fact mk-fact))
+   (lambda (f)
+     (lambda (n)
+       (if (zero? n)
+           1
+           (* n ((f f) (sub1 n))))))))
+(fact2 5)
+
+(define fact3
+  ((lambda (mk-fact)
+     (mk-fact mk-fact))
+   (lambda (f)
+     ((lambda (g)
+        (lambda (n)
+          (if (zero? n)
+              1
+              (* n (g (sub1 n))))))
+      (lambda (x) ((f f) x)))))
+  )
+
+(fact3 5)
+
+(define make-recursive-procedure
+  (lambda (p)
+    ((lambda (mk-fact)
+       (mk-fact mk-fact))
+     (lambda (f)
+       (p (f f))))))   ;;;; Problems lurking!!!
+
+((make-recursive-procedure
+  (lambda (f)
+    (lambda (n)
+      (if (zero? n)
+          1
+          (* n (f (sub1 n)))))))
+ 5)
+(define fact4 (make-recursive-procedure
+               (lambda (f)
+                 (lambda (n)
+                   (if (zero? n)
+                       1
+                       (* n (f (sub1 n))))))))
+
+(fact4 5)
+ 

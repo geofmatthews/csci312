@@ -1,0 +1,71 @@
+;; Lazy cons
+
+(define-syntax lcons
+  (syntax-rules ()
+    ((lcons a b) (cons a (lambda () b)))))
+
+(define-syntax lcar
+  (syntax-rules ()
+    ((lcar x) (car x))))
+
+(define-syntax lcdr
+  (syntax-rules ()
+    ((lcdr x) ((cdr x)))))
+
+(define nth
+  (lambda (n stream)
+    (cond ((zero? n) (lcar stream))
+          (else (nth (- n 1) (lcdr stream))))))
+
+(define front
+  (lambda (stream)
+    (list (nth 0 stream) (nth 1 stream) (nth 2 stream) 
+          (nth 3 stream) (nth 4 stream) (nth 5 stream) '...)))
+
+(define ones (lcons 1 ones))
+(front ones)
+
+(define s+
+  (lambda (s1 s2)
+    (lcons (+ (lcar s1) (lcar s2))
+           (s+ (lcdr s1) (lcdr s2)))))
+
+(define ints (lcons 0 (s+ ints ones)))
+(front ints)
+
+(define evens (s+ ints ints))
+(front evens)
+
+(define odds (s+ ints (lcdr ints)))
+(front odds)
+
+(define cumsum
+  (lambda (stream)
+    (let loop ((sum (lcar stream)) (stream (lcdr stream)))
+      (lcons sum
+             (loop (+ sum (lcar stream)) (lcdr stream))))))
+
+(front (cumsum ints))
+(front (cumsum odds))
+
+(define fibs (lcons 1 (lcons 1 (s+ fibs (lcdr fibs)))))
+(front fibs)
+
+(define keep-if
+  (lambda (pred stream)
+    (if (pred (lcar stream))
+        (lcons (lcar stream) (keep-if pred (lcdr stream)))
+        (keep-if pred (lcdr stream)))))
+
+(define sieve
+  (lambda (stream)
+    (lcons
+     (lcar stream)
+     (sieve
+      (keep-if
+       (lambda (x)
+         (not (zero? (remainder x (lcar stream)))))
+       (lcdr stream))))))
+
+(define primes (sieve (lcdr (lcdr ints))))
+(front primes)

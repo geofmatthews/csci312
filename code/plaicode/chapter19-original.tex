@@ -1,0 +1,321 @@
+% latex foo.tex 
+% dvips -Poutline -G0 foo.dvi -o 
+% ps2pdf -dPDFSETTINGS#/prepress foo.ps
+\documentclass[slidestop,xcolor=pst,dvips]{beamer}
+\usepackage{fancyvrb}
+\usepackage{alltt}
+\usepackage{pstricks,pst-tree,pst-node}
+\newcommand{\bi}{\begin{enumerate}}
+\newcommand{\ei}{\end{enumerate}}
+\newcommand{\sect}[1]{
+\section{#1}
+\begin{frame}[fragile]\frametitle{#1}
+}
+
+\mode<presentation>
+{
+  \usetheme{Madrid}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\usepackage[english]{babel}
+
+\usepackage[latin1]{inputenc}
+
+\title[Chapter 19.5]
+{
+Chapter 19.5
+}
+
+\subtitle{} % (optional)
+
+\author[Geoffrey Matthews]
+{Geoffrey Matthews}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[WWU/CS]
+{
+  Department of Computer Science\\
+  Western Washington University
+}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date{Spring 2011}
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+\pgfdeclareimage[height=0.5cm]{university-logo}{WWULogoProColor}
+\logo{\pgfuseimage{university-logo}}
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\newcommand{\lmb}{{lambda$\uparrow$}}
+\newcommand{\bul}{{$\bullet$}}
+\newcommand{\ba}{\begin{alltt}}
+\newcommand{\ea}{\end{alltt}}
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%\begin{frame}
+%  \frametitle{Outline}
+%  \tableofcontents
+%  % You might wish to add the option [pausesections]
+%\end{frame}
+
+\tiny
+
+\sect{Redefining Send}
+\begin{columns}[t]
+\column{.5\textwidth}
+\begin{alltt}
+(define (route-producer send)
+  (begin
+    (send 'providence)
+    (send 'houston)
+    (send 'bangalore)))
+
+(let/cc k (route-producer k))
+
+k = (\lmb (\bul) \bul)
+\end{alltt}
+\column{.5\textwidth}
+\begin{alltt}
+
+(begin
+  ((\lmb (\bul) \bul) 'providence)
+  ((\lmb (\bul) \bul) 'houston)
+  ((\lmb (\bul) \bul) 'bangalore)
+\end{alltt}
+\end{columns}
+\end{frame}
+
+\sect{Redefining Send}
+\begin{columns}[t]
+\column{.5\textwidth}
+\begin{alltt}
+(define route-producer
+  (local ([define resume (box false)])
+    (lambda (send)
+      (if (unbox resume)
+          ((unbox resume) 'dummy)
+          (begin
+            (send 'providence)
+            (send 'houston)
+            (send 'bangalore))))))
+\end{alltt}
+\column{.5\textwidth}
+\begin{alltt}
+(define route-producer
+  (local ([define resume (box false)])
+    (lambda (real-send)
+      (local ([define send (lambda (value-to-send)
+                             (let/cc k
+                               ...))])
+        (if (unbox resume)
+            ((unbox resume) 'dummy)
+            (begin
+              (send 'providence)
+              (send 'houston)
+              (send 'bangalore)))))))
+\end{alltt}
+\end{columns}
+\end{frame}
+
+
+
+\sect{Redefining Send}
+\begin{columns}[t]
+\column{.5\textwidth}
+\begin{alltt}
+(define route-producer
+  (local ([define resume (box false)])
+    (lambda (real-send)
+      (local ([define 
+                send 
+                (lambda (value-to-send)
+                  (let/cc k
+                    ...))])
+
+
+        (if (unbox resume)
+            ((unbox resume) 'dummy)
+            (begin
+              (send 'providence)
+              (send 'houston)
+              (send 'bangalore)))))))
+\end{alltt}
+\column{.5\textwidth}
+\begin{alltt}
+(define route-producer
+  (local ([define resume (box false)])
+    (lambda (real-send)
+      (local ([define 
+                send 
+                (lambda (value-to-send)
+                  (let/cc k
+                    (begin
+                      (set-box! resume k)
+                      (real-send value-to-send))))])
+        (if (unbox resume)
+            ((unbox resume) 'dummy)
+            (begin
+              (send 'providence)
+              (send 'houston)
+              (send 'bangalore)))))))
+
+\end{alltt}
+\end{columns}
+\end{frame}
+
+\sect{Redefining Send}
+\begin{columns}[t]
+\column{.5\textwidth}
+\begin{alltt}
+(define route-producer
+  (local ([define resume (box false)])
+    (lambda (real-send)
+      (local ([define send 
+                (lambda (value-to-send)
+                  (let/cc k
+                    (begin
+                      (set-box! resume k)
+                      (real-send value-to-send))))])
+        (if (unbox resume)
+            ((unbox resume) 'dummy)
+            (begin
+              (send 'providence)
+              (send 'houston)
+              (send 'bangalore)))))))
+\end{alltt}
+\column{.5\textwidth}
+\begin{alltt}
+
+> (let/cc k (route-producer k))
+'providence
+> (let/cc k (route-producer k))
+'houston
+> (let/cc k (route-producer k))
+'bangalore
+> 
+\end{alltt}
+\end{columns}
+\end{frame}
+
+
+\sect{Redefining Send}
+\begin{columns}[t]
+\column{.5\textwidth}
+\ba(define route-producer
+  (local ([define resume (box false)])
+    (lambda (real-send)
+      (local ([define send 
+                (lambda (value-to-send)
+                  (let/cc k
+                    (begin
+                      (set-box! resume k)
+                      (real-send value-to-send))))])
+        (if (unbox resume)
+            ((unbox resume) 'dummy)
+            (begin
+              (send 'providence)
+              (send 'houston)
+              (send 'bangalore)))))))
+
+(list (let/cc k (route-producer k))
+      (let/cc k (route-producer k))
+      (let/cc k (route-producer k)))\ea\onslide<4->\ba
+(list (begin
+        (send 'providence)
+        (send 'houston)
+        (send 'bangalore))
+      (let/cc k (route-producer k))
+      (let/cc k (route-producer k)))
+\ea
+\column{.5\textwidth}
+\onslide<2-4>\ba resume = \fbox{false}\ea
+\onslide<3->\ba
+real-send =
+(\lmb (\bul)
+  (list \bul
+        (let/cc k (route-producer k))
+        (let/cc k (route-producer k))))\ea\onslide<5->\ba
+value-to-send = 'providence
+k = (unbox resume) = 
+(\lmb (\bul)
+  (list (begin
+          \bul
+          (send 'houston)
+          (send 'bangalore))
+        (let/cc k (route-producer k))
+        (let/cc k (route-producer k))))
+\ea
+\onslide<6->
+
+\ba
+(list 'providence
+      (let/cc k (route-producer k))
+      (let/cc k (route-producer k)))\ea
+\end{columns}
+\end{frame}
+
+\sect{Redefining Send}
+\begin{columns}[t]
+\column{.5\textwidth}
+\ba(define route-producer
+  (local ([define resume (box false)])
+    (lambda (real-send)
+      (local ([define send 
+                (lambda (value-to-send)
+                  (let/cc k
+                    (begin
+                      (set-box! resume k)
+                      (real-send value-to-send))))])
+        (if (unbox resume)
+            ((unbox resume) 'dummy)
+            (begin
+              (send 'providence)
+              (send 'houston)
+              (send 'bangalore)))))))
+
+(list 'providence
+      (let/cc k (route-producer k))
+      (let/cc k (route-producer k)))
+\ea
+\column{.5\textwidth}
+\ba
+real-send =
+(\lmb (\bul)
+  (list \bul
+        (let/cc k (route-producer k))
+        (let/cc k (route-producer k))))
+value-to-send = 'providence
+k = (unbox resume) = 
+(\lmb (\bul)
+  (list (begin
+          \bul
+          (send 'houston)
+          (send 'bangalore))
+        (let/cc k (route-producer k))
+        (let/cc k (route-producer k))))
+\ea
+
+
+\end{columns}
+\end{frame}
+
+
+
+\end{document}

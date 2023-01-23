@@ -1,0 +1,37 @@
+#lang racket
+
+(define mymap 
+  (lambda (f ls)
+    (if (null? ls) empty
+        (cons (f (car ls))
+              (mymap f (cdr ls))))))
+
+(define foo
+  (lambda (f ls)
+    (display (mymap f ls))
+    (newline)))
+
+(define double
+  (lambda (x) (* 2 x)))
+(foo double (list 1 2 3 4 5))
+
+(define mymap-k
+  (lambda (f ls k)
+    (if (null? ls) (k empty)
+        (f (car ls)
+           (lambda (val1)
+             (mymap-k f (cdr ls)
+                      (lambda (val2)
+                        (k (cons val1 val2)))))))))
+
+(define foo-k
+  (lambda (f ls k)
+    (mymap-k f ls
+             (lambda (val)
+               (display val)
+               (newline)))))
+
+(define double-k
+  (lambda (x k)
+    (k (* 2 x))))
+(foo-k double-k (list 1 2 3 4 5) (lambda (x) x))
