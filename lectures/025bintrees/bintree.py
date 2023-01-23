@@ -11,22 +11,19 @@ class BinaryTree:
   def printTree(self):
     self.printTreeIndented(0)
   def printTreeIndented(self,depth):
-    print "Nonexistent tree."
+    print("Nonexistent tree.")
     
 class Leaf(BinaryTree):
-  datum = 0
   def __init__(self,n):
     self.datum = n
   def leafSum(self):
     return self.datum
   def printTreeIndented(self,depth):
-    for i in range(depth): print " ",
-    print self.datum
+    for i in range(depth):
+      print(" ", end='')
+    print(self.datum)
   
 class InteriorNode(BinaryTree):
-  key = "Dummy"
-  left = 0
-  right = 0
   def __init__(self,k,lf,rt):
     self.key = k;
     self.left = lf;
@@ -34,8 +31,9 @@ class InteriorNode(BinaryTree):
   def leafSum(self):
     return self.left.leafSum() + self.right.leafSum()
   def printTreeIndented(self,depth):
-    for i in range(depth): print " ",
-    print self.key
+    for i in range(depth):
+      print(" ", end='')
+    print(self.key)
     self.left.printTreeIndented(depth+1)
     self.right.printTreeIndented(depth+1)
 
@@ -52,7 +50,7 @@ x = InteriorNode("Fuzzy",
                               Leaf(66)))
 
 x.printTree()
-print "The sum is:", x.leafSum()
+print("The sum is:", x.leafSum())
 
 
 

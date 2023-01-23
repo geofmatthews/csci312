@@ -13,8 +13,7 @@
    (left bintree?)
    (right bintree?)))
 
-(define print-tree
-  (lambda (tree . depth)
+(define (print-tree tree . depth)
     (if (null? depth) (print-tree tree 0)
         (type-case bintree tree
           (leaf (datum)
@@ -30,14 +29,13 @@
             (display key)
             (newline)
             (print-tree left (+ (car depth) 1))
-            (print-tree right (+ (car depth) 1))))))))
+            (print-tree right (+ (car depth) 1)))))))
            
-(define leaf-sum
-  (lambda (tree)
+(define (leaf-sum tree)
     (type-case bintree tree
            (leaf (datum) datum)
            (interior-node (key left right)
-                          (+ (leaf-sum left) (leaf-sum right))))))
+                          (+ (leaf-sum left) (leaf-sum right)))))
 
 (define x 
   (interior-node
