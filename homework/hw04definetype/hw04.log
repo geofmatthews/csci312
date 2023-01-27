@@ -1,15 +1,15 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.9)  25 JAN 2023 16:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.12) (preloaded format=pdflatex 2022.12.30)  27 JAN 2023 10:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**hw04.tex
-(./hw04.tex
-LaTeX2e <2022-06-01> patch level 5
-L3 programming layer <2022-08-30>
-(c:/texlive/2022/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
-(c:/texlive/2022/texmf-dist/tex/latex/base/size11.clo
-File: size11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+**./hw04.tex
+(hw04.tex
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2022-12-17>
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
+Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
+File: size10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
 \c@section=\count186
@@ -19,29 +19,56 @@ File: size11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 \c@subparagraph=\count190
 \c@figure=\count191
 \c@table=\count192
-\abovecaptionskip=\skip47
-\belowcaptionskip=\skip48
-\bibindent=\dimen138
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
 )
-(c:/texlive/2022/texmf-dist/tex/latex/tools/multicol.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count193
+\Gm@cntv=\count194
+\c@Gm@tempcnt=\count195
+\Gm@bindingoffset=\dimen141
+\Gm@wd@mp=\dimen142
+\Gm@odd@mp=\dimen143
+\Gm@even@mp=\dimen144
+\Gm@layoutwidth=\dimen145
+\Gm@layoutheight=\dimen146
+\Gm@layouthoffset=\dimen147
+\Gm@layoutvoffset=\dimen148
+\Gm@dimlist=\toks17
+
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/tools\multicol.sty
 Package: multicol 2021/11/30 v1.9d multicolumn formatting (FMi)
-\c@tracingmulticols=\count193
+\c@tracingmulticols=\count196
 \mult@box=\box51
-\multicol@leftmargin=\dimen139
-\c@unbalance=\count194
-\c@collectmore=\count195
-\doublecol@number=\count196
-\multicoltolerance=\count197
-\multicolpretolerance=\count198
-\full@width=\dimen140
-\page@free=\dimen141
-\premulticols=\dimen142
-\postmulticols=\dimen143
-\multicolsep=\skip49
-\multicolbaselineskip=\skip50
+\multicol@leftmargin=\dimen149
+\c@unbalance=\count197
+\c@collectmore=\count198
+\doublecol@number=\count199
+\multicoltolerance=\count266
+\multicolpretolerance=\count267
+\full@width=\dimen150
+\page@free=\dimen151
+\premulticols=\dimen152
+\postmulticols=\dimen153
+\multicolsep=\skip50
+\multicolbaselineskip=\skip51
 \partial@page=\box52
 \last@line=\box53
-\maxbalancingoverflow=\dimen144
+\maxbalancingoverflow=\dimen154
 \mult@rightbox=\box54
 \mult@grightbox=\box55
 \mult@firstbox=\box56
@@ -82,121 +109,136 @@ Package: multicol 2021/11/30 v1.9d multicolumn formatting (FMi)
 \@tempa=\box91
 \@tempa=\box92
 \@tempa=\box93
-\c@minrows=\count199
-\c@columnbadness=\count266
-\c@finalcolumnbadness=\count267
-\last@try=\dimen145
-\multicolovershoot=\dimen146
-\multicolundershoot=\dimen147
+\c@minrows=\count268
+\c@columnbadness=\count269
+\c@finalcolumnbadness=\count270
+\last@try=\dimen155
+\multicolovershoot=\dimen156
+\multicolundershoot=\dimen157
 \mult@nat@firstbox=\box94
 \colbreak@box=\box95
-\mc@col@check@num=\count268
+\mc@col@check@num=\count271
 )
-(c:/texlive/2022/texmf-dist/tex/latex/base/alltt.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/base\alltt.sty
 Package: alltt 2021/01/29 v2.0g defines alltt environment
 )
-(c:/texlive/2022/texmf-dist/tex/latex/tikz-qtree/tikz-qtree.sty
-(c:/texlive/2022/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
-(c:/texlive/2022/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
-(c:/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks16
-\pgfutil@tempdima=\dimen148
-\pgfutil@tempdimb=\dimen149
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/tikz-qtree\tikz-qtree.s
+ty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz.
+sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfrcs.st
+y
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
+-common.tex
+\pgfutil@everybye=\toks18
+\pgfutil@tempdima=\dimen158
+\pgfutil@tempdimb=\dimen159
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.tex)
-) (c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
+-common-lists.tex))
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil
+-latex.def
 \pgfutil@abb=\box96
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfrcs.
+code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf\pgf.revision.tex)
 Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
 ))
 Package: pgf 2021/05/15 v3.1.9a (3.1.9a)
 
-(c:/texlive/2022/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
-(c:/texlive/2022/texmf-dist/tex/latex/graphics/graphicx.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.
+sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
-(c:/texlive/2022/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
-\KV@toks@=\toks17
-)
-(c:/texlive/2022/texmf-dist/tex/latex/graphics/graphics.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
 
-(c:/texlive/2022/texmf-dist/tex/latex/graphics/trig.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 )
-(c:/texlive/2022/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 
-(c:/texlive/2022/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen150
-\Gin@req@width=\dimen151
+\Gin@req@height=\dimen160
+\Gin@req@width=\dimen161
 )
-(c:/texlive/2022/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.
+sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s.code.tex
 Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks18
-\pgfkeys@temptoks=\toks19
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
+.code.tex
+\pgfkeys@pathtoks=\toks19
+\pgfkeys@temptoks=\toks20
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.tex
-\pgfkeys@tmptoks=\toks20
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
+filtered.code.tex
+\pgfkeys@tmptoks=\toks21
 ))
-\pgf@x=\dimen152
-\pgf@y=\dimen153
-\pgf@xa=\dimen154
-\pgf@ya=\dimen155
-\pgf@xb=\dimen156
-\pgf@yb=\dimen157
-\pgf@xc=\dimen158
-\pgf@yc=\dimen159
-\pgf@xd=\dimen160
-\pgf@yd=\dimen161
+\pgf@x=\dimen162
+\pgf@y=\dimen163
+\pgf@xa=\dimen164
+\pgf@ya=\dimen165
+\pgf@xb=\dimen166
+\pgf@yb=\dimen167
+\pgf@xc=\dimen168
+\pgf@yc=\dimen169
+\pgf@xd=\dimen170
+\pgf@yd=\dimen171
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
-\c@pgf@counta=\count269
-\c@pgf@countb=\count270
-\c@pgf@countc=\count271
-\c@pgf@countd=\count272
-\t@pgf@toka=\toks21
-\t@pgf@tokb=\toks22
-\t@pgf@tokc=\toks23
-\pgf@sys@id@count=\count273
- (c:/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+\c@pgf@counta=\count272
+\c@pgf@countb=\count273
+\c@pgf@countc=\count274
+\c@pgf@countd=\count275
+\t@pgf@toka=\toks22
+\t@pgf@tokb=\toks23
+\t@pgf@tokc=\toks24
+\pgf@sys@id@count=\count276
+
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.c
+fg
 File: pgf.cfg 2021/05/15 v3.1.9a (3.1.9a)
 )
 Driver file for pgf: pgfsys-pdftex.def
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s-pdftex.def
 File: pgfsys-pdftex.def 2021/05/15 v3.1.9a (3.1.9a)
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+s-common-pdf.def
 File: pgfsys-common-pdf.def 2021/05/15 v3.1.9a (3.1.9a)
 )))
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+ssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfsyssoftpath@smallbuffer@items=\count274
-\pgfsyssoftpath@bigbuffer@items=\count275
+\pgfsyssoftpath@smallbuffer@items=\count277
+\pgfsyssoftpath@bigbuffer@items=\count278
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
+sprotocol.code.tex
 File: pgfsysprotocol.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-)) (c:/texlive/2022/texmf-dist/tex/latex/xcolor/xcolor.sty
+))
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
 
-(c:/texlive/2022/texmf-dist/tex/latex/graphics-cfg/color.cfg
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 227.
-
-(c:/texlive/2022/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
 Package xcolor Info: Model `RGB' extended on input line 1369.
@@ -207,248 +249,284 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+e.code.tex
 Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen162
-\pgfmath@count=\count276
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code
+.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathcalc.
+code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathutil.
+code.tex)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathparse
+r.code.tex
+\pgfmath@dimen=\dimen172
+\pgfmath@count=\count279
 \pgfmath@box=\box97
-\pgfmath@toks=\toks24
-\pgfmath@stack@operand=\toks25
-\pgfmath@stack@operation=\toks26
+\pgfmath@toks=\toks25
+\pgfmath@stack@operand=\toks26
+\pgfmath@stack@operation=\toks27
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.te
-x)
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric
-.code.tex)
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.t
-ex)
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.co
-de.tex)
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex
-)
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.te
-x)
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex
-)
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithm
-etics.code.tex)))
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count277
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.basic.code.tex)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.trigonometric.code.tex)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.random.code.tex)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.comparison.code.tex)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.base.code.tex)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.round.code.tex)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.misc.code.tex)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunct
+ions.integerarithmetics.code.tex)))
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat
+.code.tex
+\c@pgfmathroundto@lastzeros=\count280
 ))
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.
+tex)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epoints.code.tex
 File: pgfcorepoints.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@picminx=\dimen163
-\pgf@picmaxx=\dimen164
-\pgf@picminy=\dimen165
-\pgf@picmaxy=\dimen166
-\pgf@pathminx=\dimen167
-\pgf@pathmaxx=\dimen168
-\pgf@pathminy=\dimen169
-\pgf@pathmaxy=\dimen170
-\pgf@xx=\dimen171
-\pgf@xy=\dimen172
-\pgf@yx=\dimen173
-\pgf@yy=\dimen174
-\pgf@zx=\dimen175
-\pgf@zy=\dimen176
+\pgf@picminx=\dimen173
+\pgf@picmaxx=\dimen174
+\pgf@picminy=\dimen175
+\pgf@picmaxy=\dimen176
+\pgf@pathminx=\dimen177
+\pgf@pathmaxx=\dimen178
+\pgf@pathminy=\dimen179
+\pgf@pathmaxy=\dimen180
+\pgf@xx=\dimen181
+\pgf@xy=\dimen182
+\pgf@yx=\dimen183
+\pgf@yy=\dimen184
+\pgf@zx=\dimen185
+\pgf@zy=\dimen186
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.cod
-e.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@path@lastx=\dimen177
-\pgf@path@lasty=\dimen178
+\pgf@path@lastx=\dimen187
+\pgf@path@lasty=\dimen188
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.te
-x
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epathusage.code.tex
 File: pgfcorepathusage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@shorten@end@additional=\dimen179
-\pgf@shorten@start@additional=\dimen180
+\pgf@shorten@end@additional=\dimen189
+\pgf@shorten@start@additional=\dimen190
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+escopes.code.tex
 File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfpic=\box98
 \pgf@hbox=\box99
 \pgf@layerbox@main=\box100
-\pgf@picture@serial@count=\count278
+\pgf@picture@serial@count=\count281
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code
-.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+egraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgflinewidth=\dimen181
+\pgflinewidth=\dimen191
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.c
-ode.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+etransformations.code.tex
 File: pgfcoretransformations.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@pt@x=\dimen182
-\pgf@pt@y=\dimen183
-\pgf@pt@temp=\dimen184
+\pgf@pt@x=\dimen192
+\pgf@pt@y=\dimen193
+\pgf@pt@temp=\dimen194
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+equick.code.tex
 File: pgfcorequick.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eobjects.code.tex
 File: pgfcoreobjects.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing.co
-de.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epathprocessing.code.tex
 File: pgfcorepathprocessing.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+earrows.code.tex
 File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfarrowsep=\dimen185
+\pgfarrowsep=\dimen195
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eshade.code.tex
 File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@max=\dimen186
-\pgf@sys@shading@range@num=\count279
-\pgf@shadingcount=\count280
+\pgf@max=\dimen196
+\pgf@sys@shading@range@num=\count282
+\pgf@shadingcount=\count283
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eimage.code.tex
 File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+eexternal.code.tex
 File: pgfcoreexternal.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfexternal@startupbox=\box101
 ))
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+elayers.code.tex
 File: pgfcorelayers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code
-.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+etransparency.code.tex
 File: pgfcoretransparency.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+epatterns.code.tex
 File: pgfcorepatterns.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-) (c:/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
+)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
+erdf.code.tex
 File: pgfcorerdf.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-))) (c:/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.te
-x
+)))
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+shapes.code.tex
 File: pgfmoduleshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfnodeparttextbox=\box102
 )
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+plot.code.tex
 File: pgfmoduleplot.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
-(c:/texlive/2022/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.st
-y
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
+mp-version-0-65.sty
 Package: pgfcomp-version-0-65 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@nodesepstart=\dimen187
-\pgf@nodesepend=\dimen188
+\pgf@nodesepstart=\dimen197
+\pgf@nodesepend=\dimen198
 )
-(c:/texlive/2022/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.st
-y
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfco
+mp-version-1-18.sty
 Package: pgfcomp-version-1-18 2021/05/15 v3.1.9a (3.1.9a)
-)) (c:/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
-(c:/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
-(c:/texlive/2022/texmf-dist/tex/latex/pgf/math/pgfmath.sty
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+))
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgffor.st
+y
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfkeys.s
+ty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys
+.code.tex))
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/pgf/math\pgfmath.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code
+.tex))
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.
+code.tex
 Package: pgffor 2021/05/15 v3.1.9a (3.1.9a)
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
-\pgffor@iter=\dimen189
-\pgffor@skip=\dimen190
-\pgffor@stack=\toks27
-\pgffor@toks=\toks28
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code
+.tex)
+\pgffor@iter=\dimen199
+\pgffor@skip=\dimen256
+\pgffor@stack=\toks28
+\pgffor@toks=\toks29
 ))
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z\tikz.code.tex
 Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.co
-de.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@plot@mark@count=\count281
-\pgfplotmarksize=\dimen191
+\pgf@plot@mark@count=\count284
+\pgfplotmarksize=\dimen257
 )
-\tikz@lastx=\dimen192
-\tikz@lasty=\dimen193
-\tikz@lastxsaved=\dimen194
-\tikz@lastysaved=\dimen195
-\tikz@lastmovetox=\dimen196
-\tikz@lastmovetoy=\dimen197
-\tikzleveldistance=\dimen198
-\tikzsiblingdistance=\dimen199
+\tikz@lastx=\dimen258
+\tikz@lasty=\dimen259
+\tikz@lastxsaved=\dimen260
+\tikz@lastysaved=\dimen261
+\tikz@lastmovetox=\dimen262
+\tikz@lastmovetoy=\dimen263
+\tikzleveldistance=\dimen264
+\tikzsiblingdistance=\dimen265
 \tikz@figbox=\box103
 \tikz@figbox@bg=\box104
 \tikz@tempbox=\box105
 \tikz@tempbox@bg=\box106
-\tikztreelevel=\count282
-\tikznumberofchildren=\count283
-\tikznumberofcurrentchild=\count284
-\tikz@fig@count=\count285
+\tikztreelevel=\count285
+\tikznumberofchildren=\count286
+\tikznumberofcurrentchild=\count287
+\tikz@fig@count=\count288
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
+matrix.code.tex
 File: pgfmodulematrix.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfmatrixcurrentrow=\count286
-\pgfmatrixcurrentcolumn=\count287
-\pgf@matrix@numberofcolumns=\count288
+\pgfmatrixcurrentrow=\count289
+\pgfmatrixcurrentcolumn=\count290
+\pgf@matrix@numberofcolumns=\count291
 )
-\tikz@expandcount=\count289
+\tikz@expandcount=\count292
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
-brarytopaths.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )))
-(c:/texlive/2022/texmf-dist/tex/latex/tikz-qtree/pgftree.sty
-(c:/texlive/2022/texmf-dist/tex/latex/tikz-qtree/pgfsubpic.sty
-(c:/texlive/2022/texmf-dist/tex/latex/tikz-qtree/pgfsubpic.tex
-\pgf@subpicminx=\dimen256
-\pgf@subpicminy=\dimen257
-\pgf@subpicmaxx=\dimen258
-\pgf@subpicmaxy=\dimen259
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/tikz-qtree\pgftree.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/tikz-qtree\pgfsubpic.st
+y
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/tikz-qtree\pgfsubpic.
+tex
+\pgf@subpicminx=\dimen266
+\pgf@subpicminy=\dimen267
+\pgf@subpicmaxx=\dimen268
+\pgf@subpicmaxy=\dimen269
 ))
-(c:/texlive/2022/texmf-dist/tex/latex/tikz-qtree/pgftree.tex
-\levelsep=\dimen260
-\subtreesep=\dimen261
-\smuggle@levelsep=\dimen262
-\smuggle@subtreesep=\dimen263
-\this@levelsep=\dimen264
-\this@subtreesep=\dimen265
-\pgftree@childx=\dimen266
-\pgftree@savechildx=\dimen267
-\pgftree@childy=\dimen268
-\pgftree@savechildy=\dimen269
-\pgftree@childi=\count290
-\pgftree@savechildi=\count291
-\pgftree@level=\count292
-\pgftree@depth=\dimen270
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/tikz-qtree\pgftree.te
+x
+\levelsep=\dimen270
+\subtreesep=\dimen271
+\smuggle@levelsep=\dimen272
+\smuggle@subtreesep=\dimen273
+\this@levelsep=\dimen274
+\this@subtreesep=\dimen275
+\pgftree@childx=\dimen276
+\pgftree@savechildx=\dimen277
+\pgftree@childy=\dimen278
+\pgftree@savechildy=\dimen279
+\pgftree@childi=\count293
+\pgftree@savechildi=\count294
+\pgftree@level=\count295
+\pgftree@depth=\dimen280
 \pgf@subpic@hbox@children=\box107
-\pgf@subpic@minx@children=\dimen271
-\pgf@subpic@miny@children=\dimen272
-\pgf@subpic@maxx@children=\dimen273
-\pgf@subpic@maxy@children=\dimen274
-\pgftree@lastchildx=\dimen275
-\pgftree@lastchildy=\dimen276
+\pgf@subpic@minx@children=\dimen281
+\pgf@subpic@miny@children=\dimen282
+\pgf@subpic@maxx@children=\dimen283
+\pgf@subpic@maxy@children=\dimen284
+\pgftree@lastchildx=\dimen285
+\pgftree@lastchildy=\dimen286
 ))
-(c:/texlive/2022/texmf-dist/tex/latex/tikz-qtree/tikz-qtree.tex
-\@result=\toks29
-\child@list=\toks30
-\root@node=\toks31
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/tikz-qtree\tikz-qtree
+.tex
+\@result=\toks30
+\child@list=\toks31
+\root@node=\toks32
 ))
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
-braryshadows.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryshadows.code.tex
 File: tikzlibraryshadows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
-braryfadings.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibraryfadings.code.tex
 File: tikzlibraryfadings.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/libraries/pgflibraryfadings.code.te
-x
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
+aryfadings.code.tex
 File: pgflibraryfadings.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )))
-(c:/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
-brarytrees.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
+z/libraries\tikzlibrarytrees.code.tex
 File: tikzlibrarytrees.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-) (c:/texlive/2022/texmf-dist/tex/latex/psnfss/mathptmx.sty
+)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\mathptmx.sty
 Package: mathptmx 2020/03/25 PSNFSS-v9.3 Times w/ Math, improved (SPQR, WaS) 
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
@@ -483,224 +561,253 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
 LaTeX Info: Redefining \hbar on input line 50.
-) (c:/texlive/2022/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
+)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcolorbox.sty
 Package: tcolorbox 2022/06/24 version 5.1.1 text color boxes
-
-(c:/texlive/2022/texmf-dist/tex/latex/tools/verbatim.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/tools\verbatim.sty
 Package: verbatim 2020-07-07 v1.5u LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks32
-\verbatim@line=\toks33
+\every@verbatim=\toks33
+\verbatim@line=\toks34
 \verbatim@in@stream=\read3
 )
-(c:/texlive/2022/texmf-dist/tex/latex/environ/environ.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/environ\environ.sty
 Package: environ 2014/05/04 v0.3 A new way to define environments
 
-(c:/texlive/2022/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/trimspaces\trimspaces.s
+ty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 )
-\@envbody=\toks34
+\@envbody=\toks35
 )
-(c:/texlive/2022/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count293
+\etb@tempcnta=\count296
 )
 \tcb@titlebox=\box108
 \tcb@upperbox=\box109
 \tcb@lowerbox=\box110
 \tcb@phantombox=\box111
-\c@tcbbreakpart=\count294
-\c@tcblayer=\count295
-\c@tcolorbox@number=\count296
+\c@tcbbreakpart=\count297
+\c@tcblayer=\count298
+\c@tcolorbox@number=\count299
 \tcb@temp=\box112
 \tcb@temp=\box113
 \tcb@temp=\box114
 \tcb@temp=\box115
 
-(c:/texlive/2022/texmf-dist/tex/latex/tcolorbox/tcblistings.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcblistings.c
+ode.tex
 Library (tcolorbox): 'tcblistings.code.tex' version '5.1.1'
-(c:/texlive/2022/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count297
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count300
 \lst@gtempboxa=\box116
-\lst@token=\toks35
-\lst@length=\count298
-\lst@currlwidth=\dimen277
-\lst@column=\count299
-\lst@pos=\count300
-\lst@lostspace=\dimen278
-\lst@width=\dimen279
-\lst@newlines=\count301
-\lst@lineno=\count302
-\lst@maxwidth=\dimen280
+\lst@token=\toks36
+\lst@length=\count301
+\lst@currlwidth=\dimen287
+\lst@column=\count302
+\lst@pos=\count303
+\lst@lostspace=\dimen288
+\lst@width=\dimen289
+\lst@newlines=\count304
+\lst@lineno=\count305
+\lst@maxwidth=\dimen290
 
-(c:/texlive/2022/texmf-dist/tex/latex/listings/lstmisc.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count303
-\lst@skipnumbers=\count304
+\c@lstnumber=\count306
+\lst@skipnumbers=\count307
 \lst@framebox=\box117
 )
-(c:/texlive/2022/texmf-dist/tex/latex/listings/listings.cfg
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2020/03/24 1.8d listings configuration
 ))
 Package: listings 2020/03/24 1.8d (Carsten Heinz)
 
-(c:/texlive/2022/texmf-dist/tex/latex/tcolorbox/tcblistingscore.code.tex
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcblistingsco
+re.code.tex
 Library (tcolorbox): 'tcblistingscore.code.tex' version '5.1.1'
-(c:/texlive/2022/texmf-dist/tex/latex/tcolorbox/tcbprocessing.code.tex
+
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcbprocessing
+.code.tex
 Library (tcolorbox): 'tcbprocessing.code.tex' version '5.1.1'
-(c:/texlive/2022/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds
+.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
 
-(c:/texlive/2022/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.s
+ty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
-(c:/texlive/2022/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2022/02/03 v1.0f TeX engine tests
-)
-(c:/texlive/2022/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-)
-(c:/texlive/2022/texmf-dist/tex/latex/tools/shellesc.sty
+) (C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/tools\shellesc.sty
 Package: shellesc 2019/11/08 v1.0c unified shell escape interface for LaTeX
 Package shellesc Info: Restricted shell escape enabled on input line 77.
 ))
-\c@tcblisting=\count305
-)))
-(c:/texlive/2022/texmf-dist/tex/latex/listings/lstlang1.sty
+\c@tcblisting=\count308
+))) (C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.s
+ty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
-)
-(c:/texlive/2022/texmf-dist/tex/latex/listings/lstlang2.sty
+) (C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
 File: lstlang2.sty 2020/03/24 1.8d listings language file
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 5
-6.
-
-(c:/texlive/2022/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+8.
+ (C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
-(c:/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2022-08-30 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count306
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def
+File: l3backend-pdftex.def 2022-10-26 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count309
 \l__pdf_internal_box=\box118
-)
-(./hw04.aux)
+) (hw04.aux)
 \openout1 = `hw04.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
- (c:/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=469.75502pt
+* \textheight=650.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count307
-\scratchdimen=\dimen281
+\scratchcounter=\count310
+\scratchdimen=\dimen291
 \scratchbox=\box119
-\nofMPsegments=\count308
-\nofMParguments=\count309
-\everyMPshowfont=\toks36
-\MPscratchCnt=\count310
-\MPscratchDim=\dimen282
-\MPnumerator=\count311
-\makeMPintoPDFobject=\count312
-\everyMPtoPDFconversion=\toks37
-) (c:/texlive/2022/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+\nofMPsegments=\count311
+\nofMParguments=\count312
+\everyMPshowfont=\toks37
+\MPscratchCnt=\count313
+\MPscratchDim=\dimen292
+\MPnumerator=\count314
+\makeMPintoPDFobject=\count315
+\everyMPtoPDFconversion=\toks38
+)
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 
-(c:/texlive/2022/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+fg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-\big@size=\dimen283
-\c@lstlisting=\count313
+\big@size=\dimen293
+\c@lstlisting=\count316
 LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
- 58.
-
-(c:/texlive/2022/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
+ 60.
+ (C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
- 58.
-
-(c:/texlive/2022/texmf-dist/tex/latex/psnfss/omlztmcm.fd
+ 60.
+ (C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
- 58.
+ 60.
 
-(c:/texlive/2022/texmf-dist/tex/latex/psnfss/omsztmcm.fd
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
- 58.
+ 60.
 
-(c:/texlive/2022/texmf-dist/tex/latex/psnfss/omxztmcm.fd
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 58.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 60.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 58.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 60.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 58.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 60.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 6
-2.
+4.
 
-(c:/texlive/2022/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+(C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-<jabberwocky.jpg, id=29, 292.09125pt x 433.62pt>
+<jabberwocky.jpg, id=28, 292.09125pt x 433.62pt>
 File: jabberwocky.jpg Graphic file (type jpg)
 <use jabberwocky.jpg>
-Package pdftex.def Info: jabberwocky.jpg  used on input line 78.
-(pdftex.def)             Requested size: 180.0pt x 267.22719pt.
-
-Overfull \hbox (22.0pt too wide) in paragraph at lines 78--79
-[][] 
- []
+Package pdftex.def Info: jabberwocky.jpg  used on input line 89.
+(pdftex.def)             Requested size: 187.89914pt x 278.95163pt.
 
 [1
 
-{c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./jabberwocky.j
-pg>]
-Overfull \hbox (2.17831pt too wide) in paragraph at lines 133--138
-[]\OT1/ptm/m/n/10.95 Also write a pro-ce-dure \OT1/cmtt/m/n/10.95 fix-toves \OT
-1/ptm/m/n/10.95 that copies
- []
-
-[2] (./hw04.aux) ) 
+{C:/Users/thatm/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./jabberwock
+y.jpg>] [2] (hw04.aux) ) 
 Here is how much of TeX's memory you used:
- 17829 strings out of 475075
- 366075 string characters out of 5782996
- 920154 words of memory out of 5000000
- 38920 multiletter control sequences out of 15000+600000
- 486811 words of font info for 61 fonts, out of 8000000 for 9000
+ 18413 strings out of 476406
+ 380675 string characters out of 2789566
+ 1935787 words of memory out of 3000000
+ 38454 multiletter control sequences out of 15000+600000
+ 529540 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 115i,11n,118p,440b,1515s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/t
-exlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/20
-22/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2022/texmf-d
-ist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/ur
-w/times/utmr8a.pfb>
-Output written on hw04.pdf (2 pages, 95607 bytes).
+ 115i,11n,118p,442b,1517s stack positions out of 10000i,1000n,20000p,200000b,80000s
+{C:/Users/thatm/AppData/Local/Programs/MiKTeX/fonts/enc
+/dvips/base/8r.enc}<C:/Users/thatm/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmtt10.pfb><C:/Users/thatm/AppData/Local/Programs/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmtt8.pfb><C:/Users/thatm/AppData/Local/Programs/MiKT
+eX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/thatm/AppData/Local/Programs/MiKT
+eX/fonts/type1/urw/times/utmr8a.pfb>
+Output written on hw04.pdf (2 pages, 101782 bytes).
 PDF statistics:
- 60 PDF objects out of 1000 (max. 8388607)
- 30 compressed objects within 1 object stream
+ 58 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  114 words of extra memory for PDF output out of 10000 (max. 10000000)
 

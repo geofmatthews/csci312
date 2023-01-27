@@ -1,5 +1,6 @@
-\documentclass[11pt]{article}
+\documentclass{article}
 \pagestyle{empty}
+\usepackage[margin=1in]{geometry}
 \usepackage{multicol}
 
 \usepackage{alltt}
@@ -47,8 +48,9 @@
 
 \lstset{style=mystyle}
 
-
-
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\li}{\item}
+\newcommand{\ei}{\end{itemize}}
 
 \author{CSCI 312 Homework 4}
 \title{Jabberwocks}
@@ -58,54 +60,53 @@
 \maketitle
 
 \begin{multicols}{2}
-\begin{itemize}
-\item A {\bf jabberwock} is a borogove.
-\item A {\bf borogove} is either:
-  \begin{itemize}
-  \item two jubjubs
-  \item three borogoves
-  \item a tove
-  \end{itemize}
-\item A {\bf jubjub} is either:
-  \begin{itemize}
-  \item a tove 
-  \item two borogoves
-  \end{itemize}
-\item A {\bf tove} is two integers.  
-\end{itemize}
+\bi
+\li A {\bf jabberwock} is either:
+\bi
+\li a {\bf snark} consisting of two borogoves
+\li a {\bf boojum} consisting of three jubjubs
+\ei
+\li A {\bf borogove} is either:
+\bi
+\li a {\bf bloom} consisting of two jubjubs
+\li a {\bf barn} consisting of a borogove and a tove
+\li a {\bf bunny} consisting of a tove
+\ei
+\li A {\bf jubjub} is either:
+\bi
+\li a {\bf blub} consisting of a jubjub and a borogove
+\li a {\bf flub} consisting of a tove
+\ei
+\li A {\bf tove} is
+\bi 
+\li a {\bf pair} consisting of two numbers
+\ei
+\ei
 
+Typical jabberwocks are shown below and at right.
 \newcolumn
-\includegraphics[width=0.5\textwidth]{jabberwocky}
+
+\includegraphics[width=0.4\textwidth]{jabberwocky}
 \end{multicols}
-
-Typical jabberwocks are shown below and above, right.
-
-\hspace{-1cm}
+\begin{center}
 \fbox{
-\begin{tikzpicture}[grow=right,level distance=2.25cm]
+\begin{tikzpicture}
 \Tree
-  [.jabberwock
-    [.borogove
-      [.borogove
-        [.tove
-          [.0 ] [.2 ]
-          ] ]
-      [.borogove
-        [.jubjub
-          [.tove
-            [.1 ]  [.2 ] ]]
-        [.jubjub 
-        [.tove
-          [.1 ] [.2 ]
-          ] ] ]
-      [.borogove
-        [.tove
-          [.0 ]
-          [.2 ]
-          ] ] ] ]
+[.jabberwock-snark
+  [.borogove-bloom
+   [.jubjub-blub
+    [.jubjub-flub [.tove-pair 1 2 ]  ] 
+    [.borogove-barn [.borogove-bunny [.tove-pair 3 1 ]  ]  [.tove-pair 2 1 ]  ]  ] 
+   [.jubjub-flub [.tove-pair 1 1 ]  ]  ] 
+  [.borogove-bunny [.tove-pair 1 0 ]  ]  ] 
 \end{tikzpicture}
 }
+\end{center}
+
+
 \begin{description}
+
+\newpage
 
 \item[Types:]
 Write a
@@ -116,12 +117,17 @@ definition of jabberwocks, borogoves, and toves
 Use your datatype to write a  procedure that converts
 jabberwocks to lists.  For example:
 \begin{lstlisting}
-> (pretty-print (jabberwock-to-list test-case))
-'(jabberwock
+> [.pretty-print (jabberwock-to-list test-case))
+`(jabberwock
+  snark
   (borogove
-   ((borogove (tove 2 0))
-    (borogove ((jubjub (tove 2 1)) (jubjub (tove 2 1))))
-    (borogove (tove 2 0)))))
+   bloom
+   (jubjub
+    blub
+    (jubjub flub (tove pair 1 2))
+    (borogove barn (borogove bunny (tove pair 3 1)) (tove pair 2 1)))
+   (jubjub flub (tove pair 1 1)))
+  (borogove bunny (tove pair 1 0)))
 \end{lstlisting}
 Note that the returned object is just a list of lists, symbols, and numbers.
 
@@ -141,7 +147,7 @@ all features of your procedures.  These can be in the same
 file or a separate file.
 
 
-\item[Turn in:] Put all your files into a folder {\tt csci312lab04yourname},
+\item[Turn in:] Put all your files into a folder {\tt csci312hw04yourname},
 zip it, and submit to canvas.
 
 
