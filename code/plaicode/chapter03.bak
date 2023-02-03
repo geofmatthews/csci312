@@ -42,6 +42,7 @@
                              (subst named-expr sub-id val)
                              (subst bound-body sub-id val)))]
              [id (v) (if (symbol=? v sub-id) val expr)]))
+
 ;; calc : WAE ->number
 (define (calc expr)
   (type-case WAE expr
@@ -54,21 +55,7 @@
                                 (num (calc named-expr))))]
              [id (v) (error 'calc "free identifier")]))
 
-(define tests
-  '((3 3)
-    ({+ 3 4} 7)
-    ({+ {- 3 4} 7} 6)
-    ((with (x 5) (+ x x)) 10)
-    ((with (x 5) (+ x (with (x 3) x))) 8)
-    ((with (x 5) (+ x (with (y (+ x x)) y))) 15)
-    ))
-    
-(for-each (lambda (t) 
-            (print (first t))
-            (display " => ")
-            (newline)
-            (test (calc (parse (first t))) (second t)))
-          tests)
+
 (test (calc (parse '5)) 5)
 (test (calc (parse '{+ 5 5})) 10)
 (test (calc (parse '{with {x {+ 5 5}} {+ x x}})) 20)

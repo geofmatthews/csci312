@@ -54,7 +54,16 @@
                                 bound-id
                                 (num (calc named-expr))))]
              [id (v) (error 'calc "free identifier")]))
-
+(define (calc-lazy expr)
+  (type-case WAE expr
+             [num (n) n]
+             [add (l r) (+ (calc-lazy l) (calc-lazy r))]
+             [sub (l r) (- (calc-lazy l) (calc-lazy r))]
+             [with (bound-id named-expr bound-body)
+                   (calc-lazy (subst bound-body
+                                bound-id
+                                named-expr))]
+             [id (v) (error 'calc-lazy "free identifier")]))
 
 (test (calc (parse '5)) 5)
 (test (calc (parse '{+ 5 5})) 10)
@@ -67,5 +76,10 @@
 (test (calc (parse '{with {x 5} {+ x {with {y 3} x}}})) 10)
 (test (calc (parse '{with {x 5} {with {y x} y}})) 5)
 (test (calc (parse '{with {x 5} {with {x x} x}})) 5)
+
+(test (calc-lazy (parse '{with {x 5} {+ x {with {x 3} x}}})) 8)
+(test (calc-lazy (parse '{with {x 5} {+ x {with {y 3} x}}})) 10)
+(test (calc-lazy (parse '{with {x 5} {with {y x} y}})) 5)
+(test (calc-lazy (parse '{with {x 5} {with {x x} x}})) 5)
 
 
