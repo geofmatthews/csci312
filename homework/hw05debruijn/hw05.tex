@@ -1,0 +1,162 @@
+\documentclass[12pt]{article}
+\pagestyle{empty}
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+
+\usepackage{alltt}
+\usepackage{tikz-qtree}
+\usetikzlibrary{shadows,trees}
+\usepackage{mathptmx}
+\usepackage{graphicx}
+%\newcommand{\includegraphics}{}
+
+
+
+\newcommand{\lmb}{$\lambda$}
+\newcommand{\bll}{\\\mbox{~~~~}$\bullet$}
+\newcommand{\bk}[1]{$\langle${\bf #1}$\rangle$}
+
+\newcommand{\lit}[1]{\mbox{\tt #1}}
+\usepackage[listings]{tcolorbox}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    language=Lisp,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    escapechar=|,
+    frame=single
+}
+
+\lstset{style=mystyle}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\li}{\item}
+\newcommand{\ei}{\end{itemize}}
+
+\author{CSCI 312 Homework 5}
+\title{de Bruijn indices}
+
+\begin{document}
+
+\maketitle
+
+\begin{description}
+
+\item[de Bruijn indices:]  Write a procedure to transform WAE expressions
+into equivalent expressions using de Bruijn indices, as in the examples
+on page 25 of the text.  For example,
+\begin{lstlisting}
+{with {x 5}
+    {with {y 3}
+        {+ x y}}}
+\end{lstlisting}
+transforms into
+\begin{lstlisting}
+{with 5
+    {with 3
+        {+ <1> <0>}}}
+\end{lstlisting}
+And we convert
+\begin{lstlisting}
+{with {x 5}
+    {with {y {+ x 3}}
+        {+ x y}}}
+\end{lstlisting}
+into
+\begin{lstlisting}
+{with 5
+    {with {+ <0> 3}
+        {+ <1> <0>}}}
+\end{lstlisting} 
+
+\item[Data types:]
+Use the text's definition of WAEs:
+\begin{lstlisting}
+(define-type WAE
+  [num (n number?)]
+  [add (left WAE?) (right WAE?)]
+  [sub (left WAE?) (right WAE?)]
+  [with (name symbol?) (named-exp WAE?) (body WAE?)]
+  [id (name symbol?)])
+\end{lstlisting}
+Also use a datatype defining DBWAEs
+\begin{lstlisting}
+(define-type DBWAE
+  [dbnum ...]
+  [dbadd ...]
+  [dbsub ...]
+  [dbwith ...]
+  [dbid ...])
+\end{lstlisting}
+where I will let you fill in the appropriate fields for each type.
+
+\item[Examples:]
+The two textbook examples will look like this:
+\begin{lstlisting}
+(db (with 'x (num 5)
+          (with 'y (num 3)
+                (add (id 'x) (id 'y)))) )
+   =>
+
+(dbwith
+ (dbnum 5)
+ (dbwith (dbnum 3) (dbadd (dbid 1) (dbid 0))))
+\end{lstlisting}
+ and
+ \begin{lstlisting}
+(db (with 'x (num 5)
+          (with 'y (add (id 'x) (num 3))
+                (add (id 'x) (id 'y)))) )
+  =>
+(dbwith
+ (dbnum 5)
+ (dbwith
+  (dbadd (dbid 0) (dbnum 3))
+  (dbadd (dbid 1) (dbid 0))))
+\end{lstlisting}
+
+\item[Optional 1:] Include a parser for WAEs and an ``unparser'' for DBWAEs,
+so that the input/output can look like this:
+
+\begin{lstlisting}
+(debruijn
+  `{with {x 5}
+      {with {y {+ x 3}}
+          {+ x y}}})
+  =>
+`(with 5
+    (with (+ <0> 3)
+        (+ <1> <0>)))
+\end{lstlisting} 
+
+\item[Optional 2:]  Include parsers and tranformers that will go the other
+way, transforming DBWAEs into WAEs.
+
+
+\item[Turn in:] Put all your files into a folder {\tt csci312hw05yourname},
+zip it, and submit to canvas.
+
+
+\end{description}
+
+\end{document}
+
