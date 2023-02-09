@@ -1,0 +1,7 @@
+
+scoreToLetter :: Int -> Char
+
+scoreToLetter n
+| n > 90 = 'A'
+
+

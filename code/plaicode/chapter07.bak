@@ -2,13 +2,16 @@
 
 (require racket/trace)
 
-(define-type FAE
+(define-type RCFAE
   [num (n number?)]
-  [add (left FAE?) (right FAE?)]
+  [add (left RCFAE?) (right RCFAE?)]
+  [mul (left RCFAE?) (right RCFAE?)]
   [id (name symbol?)]
-  [fun (param symbol?) (body FAE?)]
-  [app (fun-expr FAE?) (arg-expr FAE?)]
-  [if0 (condition FAE?) (then FAE?) (else FAE?)])
+  [fun (param symbol?) (body RCFAE?)]
+  [app (fun-expr RCFAE?) (arg-expr RCFAE?)]
+  [if0 (condition RCFAE?) (then RCFAE?) (else RCFAE?)]
+  [rec (bound-id symbol?) (named-expr RCFAE?) (bound-body RCFAE?)]
+  )
 
 ;; preparse : sexpr -> sexpr
 ;; This changes (with (x e) b) into ((fun (x) b) e)
@@ -37,11 +40,16 @@
          (case (first sexpr)
            [(+) (add (parse (second sexpr))
                      (parse (third sexpr)))]
+           [(*) (mul (parse (second sexpr))
+                     (parse (third sexpr)))]
            [(fun) (fun (first (second sexpr))
                        (parse (third sexpr)))]
            [(if0) (if0 (parse (second sexpr))
                        (parse (third sexpr))
                        (parse (fourth sexpr)))]
+           [(rec) (rec (first (second sexpr))
+                       (parse (second (second sexpr)))
+                       (parse (third sexpr)))]
            [else (app (parse (first sexpr))
                       (parse (second sexpr)))]
            )]))
@@ -52,58 +60,85 @@
 (define (wparse sexpr)
   (parse (preparse sexpr)))
 
-(define-type FAE-Value
+(define-type RCFAE-Value
   [numV (n number?)]
   [closureV (param symbol?)
-            (body FAE?)
-            (ds DefrdSub?)])
+            (body RCFAE?)
+            (env Env?)])
 
-(define-type DefrdSub
+(define (boxed-RCFAE-Value? v)
+  (and (box? v)
+       (RCFAE-Value? (unbox v))))
+
+(define-type Env
   [mtSub]
-  [aSub (name symbol?) (value FAE-Value?) (ds DefrdSub?)])
+  [aSub (name symbol?) (value RCFAE-Value?) (env Env?)]
+  [aRecSub (name symbol?)
+           (value boxed-RCFAE-Value?)
+           (env Env?)]
+  )
 
-;; lookup : symbol DefrdSub -> FAE-Value
-(define (lookup name ds)
-  (type-case DefrdSub ds
+;; lookup : symbol Env -> RCFAE-Value
+(define (lookup name env)
+  (type-case Env env
              [mtSub () (error 'lookup "no binding for identifier")]
-             [aSub (bound-name bound-value rest-ds)
+             [aSub (bound-name bound-value rest-env)
                    (if (symbol=? bound-name name)
                        bound-value
-                       (lookup name rest-ds))]))
+                       (lookup name rest-env))]
+             [aRecSub (bound-name boxed-bound-value rest-env)
+                      (if (symbol=? bound-name name)
+                          (unbox boxed-bound-value)
+                          (lookup name rest-env))]
+             ))
 
+;; cyclically-bind-and-interp : symbol RCFAE env! env
+(define (cyclically-bind-and-interp bound-id named-expr env)
+  (local ([define value-holder (box (numV 1729))]
+          [define new-env (aRecSub bound-id value-holder env)]
+          [define named-expr-val (interp named-expr new-env)])
+    (begin
+      (set-box! value-holder named-expr-val)
+      new-env)))
 
-(define (add-args faev1 faev2)
-  (type-case FAE-Value faev1
-             [numV (n) (numV (+ n
-                          (type-case FAE-Value faev2
+(define (op-args op RCFAEv1 RCFAEv2)
+  (type-case RCFAE-Value RCFAEv1
+             [numV (n) (numV (op n
+                          (type-case RCFAE-Value RCFAEv2
                                      [numV (m) m]
                                      [else (error 'add-args "Adding non-numbers")])))]
              [else (error 'add-args "Adding non-numbers")]))
 
-(define (zero-val? faev)
-  (type-case FAE-Value faev
+(define (zero-val? RCFAEv)
+  (type-case RCFAE-Value RCFAEv
              [numV (n) (zero? n)]
              [else #f]))
 
-;; interp : FWAE DefrdSub -> number
-(define (interp expr ds)
-  (type-case FAE expr
+;; interp : FWAE Env -> number
+(define (interp expr env)
+  (type-case RCFAE expr
              [num (n) (numV n)]
-             [add (l r) (add-args (interp l ds) (interp r ds))]
-             [id (v) (lookup v ds)]
+             [add (l r) (op-args + (interp l env) (interp r env))]
+             [mul (l r) (op-args * (interp l env) (interp r env))]
+             [id (v) (lookup v env)]
              [fun (bound-id bound-body)
-                  (closureV bound-id bound-body ds)]
+                  (closureV bound-id bound-body env)]
              [if0 (condition thenpart elsepart)
-                  (if (zero-val? (interp condition ds))
-                      (interp thenpart ds)
-                      (interp elsepart ds))]
+                  (if (zero-val? (interp condition env))
+                      (interp thenpart env)
+                      (interp elsepart env))]
              [app (fun-expr arg-expr)
-                  (local ([define fun-val (interp fun-expr ds)])
+                  (local ([define fun-val (interp fun-expr env)])
                     (interp (closureV-body fun-val)
                             (aSub (closureV-param fun-val)
-                                  (interp arg-expr ds)
-                                  (closureV-ds fun-val) )))]
-             ))
+                                  (interp arg-expr env)
+                                  (closureV-env fun-val) )))]
+             [rec (bound-id named-expr bound-body)
+               (interp bound-body
+                       (cyclically-bind-and-interp bound-id
+                                                   named-expr
+                                                   env))]))
+             
 
 ;; Check preparser results:
 (wparse '(with (x 3)
@@ -136,3 +171,30 @@
                               (if0 x 22 (f x)))))
          (mtSub))
  (numV 20 ))
+
+(test 
+ (interp
+  (wparse
+   '(rec (f (fun (n) (if0 n 1 2)))
+      (f 2)))
+  (mtSub))
+ (numV 2))
+
+(test
+ (interp
+  (wparse
+   '(rec (f (fun (n) (if0 n 0 (+ n (f (+ n -1))))))
+      (f 5)))
+  (mtSub))
+ (numV 15))
+
+                 
+(test
+ (interp
+  (wparse
+   '(rec (f (fun (n) (if0 n 1 (* n (f (+ n -1))))))
+      (f 5)))
+  (mtSub))
+ (numV 120))
+
+                         

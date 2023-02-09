@@ -1,0 +1,4 @@
+ones = 1 : ones
+take 10 ones
+ints = 0 : zipWith (+) ints ones
+take 10 ints

@@ -74,4 +74,4 @@
        (lcdr stream))))))
 
 (define primes (sieve (lcdr (lcdr ints))))
-(front 10 primes)
+;(front 10 primes)

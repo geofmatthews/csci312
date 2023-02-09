@@ -54,7 +54,7 @@
 (front 10 (cumsum ints))
 (front 10 (cumsum odds))
 
-(define fibs (lcons 1 (lcons 1 (s+ fibs (lcdr fibs)))))
+(define fibs (lcons 0 (lcons 1 (s+ fibs (lcdr fibs)))))
 (front 10 fibs)
 
 (define keep-if
@@ -74,4 +74,4 @@
        (lcdr stream))))))
 
 (define primes (sieve (lcdr (lcdr ints))))
-;(front 10 primes)
+(front 10 primes)
