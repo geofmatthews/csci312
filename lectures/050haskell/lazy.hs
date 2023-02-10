@@ -11,6 +11,13 @@ sieve (a:as) = a : sieve (filter (\x -> 0 /= mod x a) as)
 
 primes = sieve (tail (tail ints))
 
+psums :: [Int] -> Int -> [Int]
+psums [] n = [n]
+psums (a:as) n = (a+n):(psums as (a+n))
+
+squares = psums odds 0
+
+
 main = do
   print $ "hello"
   print $ take 30 ones
@@ -19,5 +26,6 @@ main = do
   print $ take 30 odds
   print $ take 20 fibs
   print $ take 20 primes
+  print $ take 30 squares
   
 
