@@ -21,11 +21,10 @@
                          (threed-y pt)
                          (threed-z pt)))))
 
-(for-each
- (lambda (x)
-   (print (sum x))
-   (newline)
-   (print (add x))
-   (newline))
- (list p1 p2 p3))
+(sum p1)
+(sum p2)
+(sum p3)
 
+(add p1)
+(add p2)
+(add p3)
