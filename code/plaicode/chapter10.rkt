@@ -15,14 +15,6 @@
     (bound-body RCFAE?)]
   )
 
-(define (num+ lhs rhs)
-  (+ (num-n lhs) (num-n rhs)))
-
-(define (num* lhs rhs)
-  (* (num-n lhs) (num-n rhs)))
-
-(define (num-zero? num)
-  (= 0 (num-n num)))
 
 
 (define-type RCFAE-Value
@@ -30,6 +22,17 @@
   [closureV (param symbol?)
             (body RCFAE?)
             (env Env?)])
+
+
+(define (num+ lhs rhs)
+  (numV (+ (numV-n lhs) (numV-n rhs))))
+
+(define (num* lhs rhs)
+  (numV (* (numV-n lhs) (numV-n rhs))))
+
+(define (num-zero? num)
+  (= 0 (numV-n num)))
+
 (define (boxed-RCFAE-Value? v)
   (and (box? v)
        (RCFAE-Value? (unbox v))))
@@ -89,6 +92,20 @@
                                           named-expr
                                           env))]))
 
+(test (interp (num 3) (mtSub))
+      (numV 3))
+(test (interp (add (num 3) (num 3)) (mtSub))
+      (numV 6))
+(test (interp (mult (num 3)
+                    (add (num 3) (num 3)))
+              (mtSub))
+      (numV (* 3 (+ 3 3))))
+
+(test (interp
+       (app (fun 'x (add (id 'x) (id 'x)))
+            (num 3))
+       (mtSub))
+      (numV 6))
 
 
 (test (interp
@@ -99,6 +116,5 @@
                                       (add (id 'n)
                                            (num -1))))))
          (app (id 'fac) (num 5)))
-              (mtSub))
-         (numV 120))
-       
+       (mtSub))
+      (numV 120))
