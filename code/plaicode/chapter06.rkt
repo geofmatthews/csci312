@@ -5,6 +5,7 @@
 (define-type FAE
   [num (n number?)]
   [add (left FAE?) (right FAE?)]
+  [mult (left FAE?) (right FAE?)]
   [id (name symbol?)]
   [fun (param symbol?) (body FAE?)]
   [app (fun-expr FAE?) (arg-expr FAE?)]
@@ -37,6 +38,8 @@
          (case (first sexpr)
            [(+) (add (parse (second sexpr))
                      (parse (third sexpr)))]
+           [(*) (mult (parse (second sexpr))
+                     (parse (third sexpr)))]
            [(fun) (fun (first (second sexpr))
                        (parse (third sexpr)))]
            [(if0) (if0 (parse (second sexpr))
@@ -65,7 +68,8 @@
 ;; lookup : symbol Environment -> FAE-Value
 (define (lookup name env)
   (type-case Environment env
-             [mtSub () (error 'lookup "no binding for identifier")]
+             [mtSub () (error 'lookup
+                              (format "no binding for identifier ~a" name))]
              [aSub (bound-name bound-value rest-env)
                    (if (symbol=? bound-name name)
                        bound-value
@@ -75,6 +79,14 @@
 (define (add-args faev1 faev2)
   (type-case FAE-Value faev1
              [numV (n) (numV (+ n
+                          (type-case FAE-Value faev2
+                                     [numV (m) m]
+                                     [else (error 'add-args "Adding non-numbers")])))]
+             [else (error 'add-args "Adding non-numbers")]))
+
+(define (mult-args faev1 faev2)
+  (type-case FAE-Value faev1
+             [numV (n) (numV (* n
                           (type-case FAE-Value faev2
                                      [numV (m) m]
                                      [else (error 'add-args "Adding non-numbers")])))]
@@ -90,6 +102,7 @@
   (type-case FAE expr
              [num (n) (numV n)]
              [add (l r) (add-args (interp l env) (interp r env))]
+             [mult (l r) (mult-args (interp l env) (interp r env))]
              [id (v) (lookup v env)]
              [fun (bound-id bound-body)
                   (closureV bound-id bound-body env)]
@@ -130,3 +143,19 @@
                               (if0 x 22 (f x)))))
          (mtSub))
  (numV 20 ))
+
+(require racket/trace)
+(trace interp)
+(interp (wparse '(with (x 10)
+                        (with (f (fun (y) (if0 y 99 (+ y y))))
+                              (if0 x 22 (f x)))))
+         (mtSub))
+
+(interp (wparse '(with (fac (fun (n)
+                                 (if0 n
+                                      1
+                                      (* n (fac (+ n -1)))))
+                            )
+                       (fac 5)))
+        (mtSub))
+

@@ -28,7 +28,7 @@
            [else
             (map preparse sexpr)]))))
 
-;; parse : sexpr -> WAE
+;; parse : sexpr -> FAE
 
 (define (parse sexpr)
   (cond [(number? sexpr) (num sexpr)]
@@ -46,7 +46,7 @@
                       (parse (second sexpr)))]
            )]))
 
-;; wparse : sexpr -> WAE
+;; wparse : sexpr -> FAE
 ;; Adds "with-removal" to the parse
 
 (define (wparse sexpr)
