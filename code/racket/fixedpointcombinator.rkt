@@ -47,18 +47,24 @@
           (* n ((f f) (- n 1)))))))
  5)
 
-(let ((base (lambda (f)
-              (lambda (n)
-                (if (<= n 0)
-                    1
-                    (* n (f (- n 1))))))))
- (((lambda (recur)
-     (base (lambda (arg)
-             ((recur recur) arg))))
-   (lambda (recur)
-     (base (lambda (arg)
-             ((recur recur) arg)))))
-  5))
+(define base
+  (lambda (f)
+    (lambda (n)
+      (if (<= n 0)
+          1
+          (* n (f (- n 1)))))))
+
+;; Find the fixed-piont of the base function:
+;; (fixed-point base) == (base (fixed-point base))
+
+(((lambda (recur)
+    (base (lambda (arg)
+            ((recur recur) arg))))
+  (lambda (recur)
+    (base (lambda (arg)
+            ((recur recur) arg)))))
+ 5)
+
 
 (define Y
   (lambda (base)
