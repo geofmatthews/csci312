@@ -52,22 +52,14 @@
                 (if (<= n 0)
                     1
                     (* n (f (- n 1))))))))
- (((lambda (recur)
-     (base (lambda (arg)
-             ((recur recur) arg))))
-   (lambda (recur)
-     (base (lambda (arg)
-             ((recur recur) arg)))))
+ (((lambda (recur) (base (lambda (arg) ((recur recur) arg))))
+   (lambda (recur) (base (lambda (arg) ((recur recur) arg)))))
   5))
 
 (define Y
   (lambda (base)
-    ((lambda (recur)
-       (base (lambda (arg)
-               ( (recur recur) arg))))
-     (lambda (recur)
-       (base (lambda (arg)
-               ( (recur recur) arg)))))))
+    ((lambda (recur) (base (lambda (arg) ( (recur recur) arg))))
+     (lambda (recur) (base (lambda (arg) ( (recur recur) arg)))))))
 
 (define fact
   (Y (lambda (f)
