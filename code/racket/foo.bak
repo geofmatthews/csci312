@@ -1,0 +1,5 @@
+#lang plai
+
+(define-type foo (bar (n number?)))
+
+(define x (bar 99))
