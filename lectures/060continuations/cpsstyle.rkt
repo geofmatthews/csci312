@@ -172,3 +172,37 @@
 (let ((ls '(0 1 2 3 4 5 6 7 8 9 10)))
   (show (map funny ls))
   (show (map (lambda (x) (funny/k x id)) ls)))
+
+(define (mul ls)
+  (cond ((empty? ls) 1)
+        (else (* (car ls)
+                 (mul (cdr ls))))))
+
+(define (mul-cps ls k)
+  (cond ((empty? ls) (k 1))
+        (else
+         (mul-cps (cdr ls)
+                  (lambda (result)
+                    (k (* (car ls) result)))))))
+
+(show 'mul)
+(let ((ls '(2 4 3 5 8 9 10 11)))
+  (show (list ls (mul ls)))
+  (show (list ls (mul-cps ls id))))
+
+
+(define (mul-cps-esc ls k)
+  (cond ((empty? ls) (k 1))
+        ((zero? (car ls)) 0)
+        (else
+         (mul-cps (cdr ls)
+                  (lambda (result)
+                    (k (* (car ls) result)))))))
+
+(let ((ls '(2 4 3 5 0 8 9 10 11)))
+  (show (list ls (mul ls)))
+  (show (list ls (mul-cps ls id)))
+  (show (list ls (mul-cps-esc ls id))))
+
+
+
