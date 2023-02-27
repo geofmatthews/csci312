@@ -1,0 +1,39 @@
+(define-macro coroutine
+  (lambda (x . body)
+    `(letrec ((+local-control-state
+               (lambda (,x) ,@body))
+              (resume
+               (lambda (c v)
+                 (call/cc
+                  (lambda (k)
+                    (set! +local-control-state k)
+                    (c v))))))
+       (lambda (v)
+         (+local-control-state v)))))
+
+
+(define make-location-cor
+  (lambda (other-location-cor manager-cor)
+    (coroutine v
+      (let ((num-umbrellas 1))
+        (let loop ((umbrella? (car v))
+                   (walks-so-far (cadr v)))
+          (when umbrella?
+            (set! num-umbrellas (+ num-umbrellas 1)))
+          (cond ((>= walks-so-far *max-num-walks*)
+                 (resume manager-cor walks-so-far))
+                ((< (random) *rain-prob*)
+                 (cond ((> num-umbrellas 0)
+                        (set! num-umbrellas
+                          (- num-umbrellas 1))
+                        (apply loop
+                          (resume other-location-cor
+                                  (list #t
+                                        (+ walks-so-far 1)))))
+                       (else
+                         (apply loop
+                           (resume manager-cor walks-so-far)))))
+                (else
+                  (apply loop
+                    (resume other-location-cor
+                            (list #f (+ walks-so-far 1)))))))))))
