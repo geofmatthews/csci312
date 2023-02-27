@@ -19,7 +19,6 @@ def powtail(n, p, result = 1):
     else:
         return powtail(n, p-1, result*n)
 
-
 def mypow(n, p):
     if p == 0:
         return 1

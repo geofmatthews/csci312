@@ -1,4 +1,4 @@
-#lang plai
+(require plai)
 (define-type KCFAE
   [num (n number?)]
   [add (left KCFAE?) (right KCFAE?)]

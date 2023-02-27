@@ -1,5 +1,19 @@
-\frametitle{ Online tutorials for continuations }
+\frametitle{ PLAI Chapter 20 }
+
 \bi
-\li \url{http://community.schemewiki.org/?call-with-current-continuation}
-\li \url{https://ds26gte.github.io/tyscheme/index-Z-H-15.html#TAG:__tex2page_chap_13}
+\li Chapters 16, 17, 18, 19 introduce continuations
+\li Chapter 20 implements continuations for a language
+\li Uses the ``Pretty Big'' language:
+\bi
+\li
+In {\tt Racket}:
+\bi
+\li Language $\rightarrow$ Choose language
+\li Other languages $\rightarrow$ Pretty big
+\li At top of file: {\tt (require plai)}
+\\ instead of: \verb|#lang plai|
 \ei
+\li I'm not sure this is required any more.
+\ei
+\ei
+

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.12) (preloaded format=pdflatex 2022.12.30)  26 FEB 2023 17:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.12) (preloaded format=pdflatex 2022.12.30)  27 FEB 2023 10:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1136,30 +1136,40 @@ Dictionary: translator-theorem-dictionary, Language: English
 \openout4 = `continuations.vrb'.
 
  (continuations.vrb
-LaTeX Font Info:    Trying to load font information for U+msa on input line 3.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 4.
 
 (C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 3.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 4.
 
 (C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 3.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 4.
 
 
 (C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
-ut line 3.
+ut line 4.
 
 (C:\Users\thatm\AppData\Local\Programs\MiKTeX\tex/latex/sansmathaccent\ot1mathk
 erncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
 )) [2
+
+]
+\openout4 = `continuations.vrb'.
+
+ (continuations.vrb) [3
+
+]
+\openout4 = `continuations.vrb'.
+
+ (continuations.vrb) [4
 
 ]
 \tf@nav=\write8
@@ -1171,26 +1181,31 @@ thkerncmss.
 \tf@snm=\write10
 \openout10 = `continuations.snm'.
 
- (continuations.aux)
+
+(continuations.aux)
 Package rerunfilecheck Info: File `continuations.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 28993 strings out of 476406
- 592497 string characters out of 2789566
- 1858787 words of memory out of 3000000
- 48783 multiletter control sequences out of 15000+600000
- 519523 words of font info for 60 fonts, out of 8000000 for 9000
+ 29099 strings out of 476406
+ 594998 string characters out of 2789566
+ 1860787 words of memory out of 3000000
+ 48869 multiletter control sequences out of 15000+600000
+ 526198 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,15n,122p,439b,556s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 128i,15n,122p,439b,576s stack positions out of 10000i,1000n,20000p,200000b,80000s
 <C:/Users/thatm/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmss10.pfb><C:/Users/thatm/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmss12.pfb><C:/Users/thatm/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb><C:/Users/thatm/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on continuations.pdf (2 pages, 59751 bytes).
+ublic/amsfonts/cm/cmss9.pfb><C:/Users/thatm/AppData/Local/Programs/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/thatm/AppData/Local/Programs/MiK
+TeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/thatm/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/thatm/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/thatm/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on continuations.pdf (4 pages, 110246 bytes).
 PDF statistics:
- 92 PDF objects out of 1000 (max. 8388607)
- 5 named destinations out of 1000 (max. 500000)
+ 164 PDF objects out of 1000 (max. 8388607)
+ 9 named destinations out of 1000 (max. 500000)
  49 words of extra memory for PDF output out of 10000 (max. 10000000)
 
