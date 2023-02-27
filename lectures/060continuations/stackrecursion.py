@@ -7,6 +7,19 @@ def stack():
 def empty(s):
     return s == []
 
+def powrecursive(n, p):
+    if p == 0:
+        return 1
+    else:
+        return n * powrecursive(n, p-1)
+
+def powtail(n, p, result = 1):
+    if p == 0:
+        return result
+    else:
+        return powtail(n, p-1, result*n)
+
+
 def mypow(n, p):
     if p == 0:
         return 1
@@ -268,13 +281,25 @@ def foos(n):
 
 
 if __name__ == '__main__':
+    for i in range(10):
+        print("pow",i, powrecursive(2,i), powtail(2,i))
+    print('*'*50)
+    
     for i in range(5,15):
-        print(pow(2,i), mypowstack(2,i), mypow(2,i), mypow1(2,i), mypow2(2,i), mypow3(2,i))
+        print("pow", i, pow(2,i), mypowstack(2,i), mypow(2,i), mypow1(2,i), mypow2(2,i), mypow3(2,i))
+    print('*'*50)
+
     for i in range(5,15):
-        print(fibo(i), fibo1(i), fibo2(i), fibo3(i))
+        print("fibo", fibo(i), fibo1(i), fibo2(i), fibo3(i))
+    print('*'*50)
+
     for i in range(5,15):
-        print(even(i), even1(i), evens(i), evens2(i))
+        print("even",i,even(i), even1(i), evens(i), evens2(i))
+    print('*'*50)
+
     for i in range(5,15):
-        print(foo(i), foos(i))
+        print("foo", i, foo(i), foos(i))
+    print('*'*50)
+
 
                 
