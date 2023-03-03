@@ -145,11 +145,21 @@
  (numV 20 ))
 
 (require racket/trace)
-(trace interp)
-(interp (wparse '(with (x 10)
+;(trace interp)
+(test
+ (interp (wparse '(with (x 10)
                         (with (f (fun (y) (if0 y 99 (+ y y))))
                               (if0 x 22 (f x)))))
          (mtSub))
+ (numV 20))
+(test
+(interp (wparse '(with (fac-gen (fun (f)
+                                     (fun (n)
+                                          (if0 n 1
+                                               (* n ((f f) (+ n -1)))))))
+                       ((fac-gen fac-gen) 5)))
+        (mtSub))
+(numV 120))
 
 (interp (wparse '(with (fac (fun (n)
                                  (if0 n
@@ -158,4 +168,3 @@
                             )
                        (fac 5)))
         (mtSub))
-
