@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+\pagestyle{empty}
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+
+\usepackage{alltt}
+\usepackage{tikz-qtree}
+\usetikzlibrary{shadows,trees}
+\usepackage{mathptmx}
+\usepackage{graphicx}
+%\newcommand{\includegraphics}{}
+
+
+
+\newcommand{\lmb}{$\lambda$}
+\newcommand{\bll}{\\\mbox{~~~~}$\bullet$}
+\newcommand{\bk}[1]{$\langle${\bf #1}$\rangle$}
+
+\newcommand{\lit}[1]{\mbox{\tt #1}}
+\usepackage[listings]{tcolorbox}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    language=Lisp,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    escapechar=|,
+    frame=single
+}
+
+\lstset{style=mystyle}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\li}{\item}
+\newcommand{\ei}{\end{itemize}}
+
+\author{CSCI 312 Homework 7}
+\title{Booleans in {\tt FAE}}
+
+\begin{document}
+
+\maketitle
+
+\begin{description}
+
+\item[Booleans in {\tt FAE}:]  Add booleans as a builtin type to the FAE
+language (chapter 6).  Call this language {\tt BFAE}.  Thus, the expressible
+values of the language now include numbers, closures, and booleans.
+ 
+To make them useful you'll also need several other things:
+\begin{itemize}
+\item an {\tt if} statement
+\item Boolean literals, for which we might as well use Scheme's literals,
+\verb|#t| and \verb|#f|
+\item Boolean functions:  {\tt and}, {\tt or}, and {\tt not}
+\item Relational boolean functions:  \verb|<| and \verb|=|
+\end{itemize}
+
+Expand the {\tt FAE} language to handle all aspects of this
+addition, includeing parsing and interpreting.
+
+\item[Use it:]  Write some interesting programs in this language,
+and test them to be sure they work.
+
+\item[Turn in:] Put all your files into a folder {\tt csci312hw07yourname},
+zip it, and submit to canvas.
+
+
+\end{description}
+
+\end{document}
+
