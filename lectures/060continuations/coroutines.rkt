@@ -10,24 +10,10 @@
                     (c v))))))
        (lambda (v)
          (+local-control-state v)))))
-;;; Not finished:
-(define-syntax coroutinex
-  (syntax-rules ()
-    ((_ x ...)
-     (letrec ((+local-control-state
-               (lambda (x) ...))
-              (resume
-               (lambda (c v)
-                 (call/cc
-                  (lambda (k)
-                    (set! +local-control-state k)
-                    (c v))))))
-       (lambda (v)
-         (+local-control-state v))))))
 
 (define make-matcher-cor
   (lambda (tree-cor-1 tree-cor-2)
-    (coroutine dummy-init-arg
+    (coroutine dummy-init-arg resume
       (let loop ()
         (let ((leaf1 (resume tree-cor-1 'get-a-leaf))
               (leaf2 (resume tree-cor-2 'get-a-leaf)))
