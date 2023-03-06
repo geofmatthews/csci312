@@ -75,26 +75,90 @@
 \maketitle
 \end{frame}
 
-\bfr{WAE language}
+\bfr{Chapter 1, 2: AE}
 
-\begin{lstlisting}
-(define (subst expr sub-id val)
-  (type-case WAE expr
-    [num (n) expr]
-    [add (l r) (add (subst l sub-id val)
-                         (subst r sub-id val))]
-    [sub (l r) (sub (subst l sub-id val)
-            (subst r sub-id val))]
-    [with (bound-id named-expr bound-body)
-         (if (symbol=? bound-id sub-id)
-               (with bound-id
-                  (subst named-expr sub-id val)
-              bound-body)
-           (with bound-id
-           (subst named-expr sub-id val)
-           (subst bound-body sub-id val)))]
-               [id (v) (if (symbol=? v sub-id) val expr)]))
-\end{lstlisting}
+\bi
+\li {\tt AE}, p. 7
+\li {\tt parse}, p. 8
+\li {\tt calc}, p. 13
+\ei
 
 \end{frame}
+\bfr{Chapter 3: WAE}
+
+\bi
+\li {\tt WAE}, p. 16
+\li {\tt subst}, p. 22
+\li {\tt calc}, p. 20
+\li Recap: p. 26
+\ei
+\end{frame}
+
+\bfr{Chapter 4: F1WAE}
+\bi
+\li {\tt F1WAE}, p. 28
+\li {\tt interp}, p. 29
+\li Recap: p. 31
+\ei
+\end{frame}
+
+
+\bfr{Chapter 5: Environments}
+
+\bi
+\li {\tt DefrdSub}, p. 34
+\li {\tt lookup}, p. 34
+\li Recap: p. 38
+\ei
+\end{frame}
+
+\bfr{Chapter 6: First-Class Functions}
+\bi
+\li {\tt FAE}
+\li {\tt FAE-Value}
+\li {\tt closureV}
+\li {\tt interp}
+\li Recap: p. 54
+\ei
+\end{frame}
+
+\bfr{Chapter 7: Lazy programming}
+\bi
+\li Haskell
+\li Shell scripting
+\li Lazy Scheme consing
+\ei
+\end{frame}
+
+\bfr{Chapter 8: Implementing Laziness}
+
+\bi
+\li  {\tt CFAE/L-Value}, p. 75
+\li {\tt closureV}
+\bi
+\li {\tt exprV}
+\li {\tt strict}, p. 76
+\ei
+\li Caching
+\li {\tt CFAE/L-Value}, p. 78
+\li {\tt boxed-boolean/CFAL-Value?}
+\li {\tt strict}, p. 79
+\li Recap:  p. 83
+\ei
+
+\end{frame}
+
+\bfr{Chapter 9, 10: Recursion}
+
+\bi
+\li {\tt cyclically-bind-and-interp}
+\li Recap:  p. 101
+\ei
+
+\end{frame}
+
+\bfr{Continuations}
+\end{frame}
+
+
 \end{document}

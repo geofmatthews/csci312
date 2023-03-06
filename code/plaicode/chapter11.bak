@@ -1,0 +1,27 @@
+(define-type RCFAE-Value
+  [numV (n number?)]
+  [closureV (param symbol?)
+            (body RCFAE?)
+            (env Env?)])
+(define (Env? x)
+  (procedure? x))
+(define (mtSub)
+  (lambda (name)
+    (error ’lookup "no binding for identifier")))
+(define (aSub bound-name bound-value env)
+  (lambda (want-name)
+    (cond
+      [(symbol=? want-name bound-name) bound-value]
+      [else (lookup want-name env)])))
+(define (cyclically-bind-and-interp bound-name named-expr env)
+  (local ([define rec-ext-env
+            (lambda (want-name)
+              (cond
+                [(symbol=? want-name bound-name)
+                 (closureV (fun-param named-expr)
+                           (fun-body named-expr)
+                           rec-ext-env)]
+                [else (lookup want-name env)]))])
+    rec-ext-env))
+(define (lookup name env)
+  (env name))

@@ -36,8 +36,8 @@
   (lambda (n cont)
     (if (zero? n) (cont 1)
         (fact-cps (- n 1) (lambda (result) (cont (* n result)))))))
-(trace fact-cps)
-;(fact-cps 5 id)
+;(trace fact-cps)
+(fact-cps 5 id)
 
 (define pow
   (lambda (n exp)
