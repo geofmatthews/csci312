@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.9)  6 MAR 2023 12:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.9)  6 MAR 2023 13:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1095,13 +1095,24 @@ thkerncmss.
 ]
 \openout4 = `review.vrb'.
 
- (./review.vrb) [9
+ (./review.vrb
+Overfull \hbox (3.13927pt too wide) in paragraph at lines 13--13
+[]  \OT1/cmtt/m/n/10.95 [define new-env (aRecSub bound-id value-holder env)][] 
+
+ []
+
+
+Overfull \hbox (3.13927pt too wide) in paragraph at lines 14--14
+[]  \OT1/cmtt/m/n/10.95 [define named-expr-val (interp named-expr new-env)])[] 
+
+ []
+
+) [9
 
 ]
 \openout4 = `review.vrb'.
 
- (./review.vrb)
-[10
+ (./review.vrb) [10
 
 ]
 \tf@nav=\write8
@@ -1118,10 +1129,10 @@ Package rerunfilecheck Info: File `review.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 29073 strings out of 475075
- 585144 string characters out of 5782996
+ 29075 strings out of 475075
+ 585160 string characters out of 5782996
  1059626 words of memory out of 5000000
- 49869 multiletter control sequences out of 15000+600000
+ 49871 multiletter control sequences out of 15000+600000
  480775 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,122p,430b,556s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1129,7 +1140,7 @@ Here is how much of TeX's memory you used:
 live/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb><c:/texlive/2022
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on review.pdf (10 pages, 63848 bytes).
+Output written on review.pdf (10 pages, 67186 bytes).
 PDF statistics:
  298 PDF objects out of 1000 (max. 8388607)
  268 compressed objects within 3 object streams

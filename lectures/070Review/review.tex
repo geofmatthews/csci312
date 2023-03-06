@@ -151,13 +151,31 @@
 \bfr{Chapter 9, 10: Recursion}
 
 \bi
-\li {\tt cyclically-bind-and-interp}
 \li Recap:  p. 101
 \ei
+\begin{verbatim}
+(define (cyclically-bind-and-interp
+          bound-id
+          named-expr 
+          env)
+ (local (
+  [define value-holder (box (numV 1729))]
+  [define new-env (aRecSub bound-id value-holder env)]
+  [define named-expr-val (interp named-expr new-env)])
+  (begin
+     (set-box! value-holder named-expr-val)
+     new-env)))
+\end{verbatim}
 
 \end{frame}
 
 \bfr{Continuations}
+
+\bi
+\li Convert function calls to stack/while loop
+\li Convert function nesting to continuation-passing style, CPS
+\li {\tt call/cc} and {\tt let/cc}
+\ei
 \end{frame}
 
 

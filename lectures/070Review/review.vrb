@@ -1,1 +1,7 @@
 \frametitle{ Continuations }
+
+\bi
+\li Convert function calls to stack/while loop
+\li Convert function nesting to continuation-passing style, CPS
+\li {\tt call/cc} and {\tt let/cc}
+\ei
