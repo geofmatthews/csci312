@@ -66,7 +66,7 @@
 \newcommand{\colc}{\end{column}\end{columns}}
 
 
-\title{Review}
+\title{Continuations}
 \author{Geoffrey Matthews}
 
 \begin{document}
@@ -75,26 +75,37 @@
 \maketitle
 \end{frame}
 
-\bfr{WAE language}
+\bfr{Mind prep}
+\bi
+\li {\tt stackrecursion.py}
+\li {\tt cpsstyle.rkt}
+\ei
+\end{frame}
 
-\begin{lstlisting}
-(define (subst expr sub-id val)
-  (type-case WAE expr
-    [num (n) expr]
-    [add (l r) (add (subst l sub-id val)
-                         (subst r sub-id val))]
-    [sub (l r) (sub (subst l sub-id val)
-            (subst r sub-id val))]
-    [with (bound-id named-expr bound-body)
-         (if (symbol=? bound-id sub-id)
-               (with bound-id
-                  (subst named-expr sub-id val)
-              bound-body)
-           (with bound-id
-           (subst named-expr sub-id val)
-           (subst bound-body sub-id val)))]
-               [id (v) (if (symbol=? v sub-id) val expr)]))
-\end{lstlisting}
+\bfr{Online tutorials for {\tt call/cc}}
+
+\centerline{\shadowbox{\tt call-with-current-continuation}}
+
+\bi
+\li\url{http://community.schemewiki.org/?call-with-current-continuation}
+\li\url{https://ds26gte.github.io/tyscheme/index-Z-H-15.html#TAG:__tex2page_chap_13}
+\li\url{https://www.shido.info/lisp/scheme_cc_e.html}
+\li\url{https://beautifulracket.com/explainer/continuations.html}
+\ei
+\end{frame}
+
+\bfr{PLAI Chapter 20}
+\bi
+\li Chapters 16, 17, 18, 19 motivate continuations
+\li Chapter 20 implements continuations for a toy language
+\li Uses ``Pretty Big'' language with {\tt plai}:
+\bi
+\li Language $\rightarrow$ Choose language
+\li Other languages $\rightarrow$ Pretty big
+\li At top of file: {\tt (require plai)}\\
+    instead of {\tt \#lang plai}
+    \ei\ei
+    
 
 \end{frame}
 \end{document}

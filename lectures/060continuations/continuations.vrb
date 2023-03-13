@@ -1,19 +1,13 @@
 \frametitle{ PLAI Chapter 20 }
-
 \bi
-\li Chapters 16, 17, 18, 19 introduce continuations
-\li Chapter 20 implements continuations for a language
-\li Uses the ``Pretty Big'' language:
-\bi
-\li
-In {\tt Racket}:
+\li Chapters 16, 17, 18, 19 motivate continuations
+\li Chapter 20 implements continuations for a toy language
+\li Uses ``Pretty Big'' language with {\tt plai}:
 \bi
 \li Language $\rightarrow$ Choose language
 \li Other languages $\rightarrow$ Pretty big
-\li At top of file: {\tt (require plai)}
-\\ instead of: \verb|#lang plai|
-\ei
-\li I'm not sure this is required any more.
-\ei
-\ei
+\li At top of file: {\tt (require plai)}\\
+    instead of {\tt \#lang plai}
+    \ei\ei
+
 

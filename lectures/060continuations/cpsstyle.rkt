@@ -1,3 +1,4 @@
+(require plai)
 (require racket/trace)
 (define (show x) (display x) (newline))
 (define (id x) x)

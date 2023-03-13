@@ -1,13 +1,6 @@
-#lang racket
-
 (require racket/trace)
-
-(define fact-tail
-  (lambda (n accum)
-    (if (zero? n) accum
-        (fact-tail (- n 1) (* accum n)))))
-(trace fact-tail)
-(fact-tail 5 1)
+(define (show x) (display x) (newline))
+(define (id x) x)
 
 (define fact-nontail
   (lambda (n)
@@ -16,12 +9,35 @@
 (trace fact-nontail)
 (fact-nontail 5)
 
+(define fact-tail
+  (lambda (n accum)
+    (if (zero? n) accum
+        (fact-tail (- n 1) (* accum n)))))
+(trace fact-tail)
+(fact-tail 5 1)
+
+(show 'math)
+(show (+ (* 2 3) (* 5 4)))
+
+(define (k+ a b k)
+  (k (+ a b)))
+
+(define (k* a b k)
+  (k (* a b)))
+
+(show (k* 2 3
+          (lambda (result1)
+            (k* 5 4
+                (lambda (result2)
+                  (k+ result1 result2
+                      id))))))
+
 (define fact-cps
   (lambda (n cont)
     (if (zero? n) (cont 1)
         (fact-cps (- n 1) (lambda (result) (cont (* n result)))))))
-(trace fact-cps)
-;(fact-cps 5 (lambda (n) n))
+;(trace fact-cps)
+(fact-cps 5 id)
 
 (define pow
   (lambda (n exp)
@@ -47,13 +63,13 @@
           (else (pow-log-cps n (- exp 1) 
                              (lambda (result) (cont (* n result))))))))
 (trace pow-log-cps)
-;(pow-log-cps 3 50 (lambda (x) x))
+;(pow-log-cps 3 50 id)
 (define fib
   (lambda (n)
     (if (< n 2) 1
         (+ (fib (- n 1)) (fib (- n 2))))))
 (trace fib)
-(fib 5)
+;(fib 5)
 (define fib-cps
   (lambda (n cont)
     (if (< n 2) (cont 1)
@@ -63,7 +79,7 @@
                             (lambda (result2)
                               (cont (+ result1 result2)))))))))
 (trace fib-cps)
-(fib-cps 5 (lambda (x) x))
+;(fib-cps 5 id)
 
 (define (myeven? n)
   (if (zero? n)
@@ -83,12 +99,10 @@
       (cont #f)
       (myeven-cps? (- n 1) cont)))
 
-(let loop ((ls '(2 3 4 5)))
-  (if (empty? ls) 'done
-      (let ((x (car ls)))
-        (display (list x (myeven? x) (myeven-cps? x (lambda (x) x))))
-        (newline)
-        (loop (cdr ls)))))
+(show 'even?)
+(let ((ls '(2 3 4 5 6 7)))
+  (show (map myeven? ls))
+  (show (map (lambda (x) (myeven-cps? x id)) ls)))
 
 (define (foo n)
   (cond ((< n 3) (+ n 2))
@@ -111,21 +125,16 @@
                 (foo-cps (- n 2)
                      (lambda (result2)
                        (cont (+ n result1 result2)))))))))
-
-(let loop ((ls '(2 3 4 5 6 7 8 9 10 11 12 13 14)))
-  (if (empty? ls) 'done
-      (let ((x (car ls)))
-        (display (list x (foo x) (foo-cps x (lambda (x) x))))
-        (newline)
-        (loop (cdr ls)))))
-      
+(show 'foo)
+(let ((ls '(2 3 4 5 6 7 8 9 10 11 12)))
+  (show (map foo ls))
+  (show (map (lambda (x) (foo-cps x id)) ls)))
 
 (define (silly n)
   (cond ((< n 1) 9)
         ((even? n) (+ (silly (/ n 2)) 5))
         ((odd? n) (* (silly (/ (- n 1) 2)) (silly (- n 2))))))
 
-(map silly '(0 1 2 3 4 5))
 
 (define silly-cps
   (lambda (n cont)
@@ -138,14 +147,15 @@
                                     (lambda (result2)
                                       (cont (* result1 result2))))))))))
 
-(map (lambda (x) (silly-cps x (lambda (x) x))) '(0 1 2 3 4 5))
+(show 'silly)
+(let ((ls '(0 1 2 3 4 5 6 7 8 9 )))
+  (show (map silly ls))
+  (show (map (lambda (x) (silly-cps x id)) ls)))
 
 (define (funny n)
   (cond ((< n 1) 5)
         ((even? n) (* 2 (funny (funny (/ n 2)))))
         ((odd? n) (+ 2 (funny (- n 2))))))
-
-(map funny '(0 1 2 3 4 5))
 
 (define (funny/k n k)
   (cond ((< n 1) (k 5))
@@ -158,4 +168,41 @@
                            (lambda (result)
                              (k (+ 2 result)))))))
 
-(map (lambda (x) (funny/k x (lambda (x) x))) '(0 1 2 3 4 5))
+(show 'funny)
+(let ((ls '(0 1 2 3 4 5 6 7 8 9 10)))
+  (show (map funny ls))
+  (show (map (lambda (x) (funny/k x id)) ls)))
+
+(define (mul ls)
+  (cond ((empty? ls) 1)
+        (else (* (car ls)
+                 (mul (cdr ls))))))
+
+(define (mul-cps ls k)
+  (cond ((empty? ls) (k 1))
+        (else
+         (mul-cps (cdr ls)
+                  (lambda (result)
+                    (k (* (car ls) result)))))))
+
+(show 'mul)
+(let ((ls '(2 4 3 5 8 9 10 11)))
+  (show (list ls (mul ls)))
+  (show (list ls (mul-cps ls id))))
+
+
+(define (mul-cps-esc ls k)
+  (cond ((empty? ls) (k 1))
+        ((zero? (car ls)) 0)
+        (else
+         (mul-cps (cdr ls)
+                  (lambda (result)
+                    (k (* (car ls) result)))))))
+
+(let ((ls '(2 4 3 5 0 8 9 10 11)))
+  (show (list ls (mul ls)))
+  (show (list ls (mul-cps ls id)))
+  (show (list ls (mul-cps-esc ls id))))
+
+
+
