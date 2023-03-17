@@ -1,0 +1,27 @@
+\frametitle{ Figure 10.2: Recursion: Interpreter }
+\begin{lstlisting}
+;; interp : RCFAE env! RCFAE-Value
+(define (interp expr env)
+  (type-case RCFAE expr
+	     [num (n) (numV n)]
+	     [add (l r) (num+ (interp l env) (interp r env))]
+	     [mult (l r) (num^^C (interp l env) (interp r env))]
+	     [if0 (test truth falsity)
+		  (if (num-zero? (interp test env))
+		      (interp truth env)
+		    (interp falsity env))]
+	     [id (v) (lookup v env)]
+	     [fun (bound-id bound-body)
+		  (closureV bound-id bound-body env)]
+	     [app (fun-expr arg-expr)
+		  (local ([define fun-val (interp fun-expr env)])
+			 (interp (closureV-body fun-val)
+				 (aSub (closureV-param fun-val)
+				       (interp arg-expr env)
+				       (closureV-env fun-val))))]
+	     [rec (bound-id named-expr bound-body)
+		  (interp bound-body
+			  (cyclically-bind-and-interp bound-id
+						      named-expr
+						      env))]))
+\end{lstlisting}
