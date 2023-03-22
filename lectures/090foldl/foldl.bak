@@ -1,0 +1,18 @@
+(define (for init condition change body result)
+  (local [(define (loop init result)
+            (if (condition init)
+                (loop (change init)
+                      (body init result))
+                result))]
+    (loop init result)))
+
+(for 10 positive? sub1 + 0)
+
+(define (myfoldl op init ls)
+  (cond ((empty? ls) init)
+        (else
+         (myfoldl op (op (car ls) init) (cdr ls)))))
+
+(foldl + 0 '(1 2 3 4))
+(myfoldl + 0 '(1 2 3 4))
+(myfoldl cons '() '(1 2 3 4))
