@@ -10,11 +10,23 @@
 
 (for 10 positive? sub1 + 0)
 
-(define (mycopy1 ls init)
+(define (mycopy ls)
+  (cond ((empty? ls) '())
+        (else (cons (car ls) (mycopy (cdr ls))))))
+(show 'mycopy)
+(mycopy '(1 2 3 4 5))
+(define (myfoldr op init ls)
+  (cond ((empty? ls) '())
+        (else
+         (op (car ls) (myfoldr op init (cdr ls))))))
+(show 'myfoldr)
+(myfoldr cons '() '(1 2 3 4))
+
+(define (revcopy ls init)
   (cond ((empty? ls) init)
-        (else (mycopy1 (cdr ls) (cons (car ls) init)))))
-(show 'mycopyl)
-(mycopy1 '(1 2 3 4 5) '())
+        (else (revcopy (cdr ls) (cons (car ls) init)))))
+(show 'revcopy)
+(revcopy '(1 2 3 4 5) '())
 
 (define (myfoldl op init ls)
   (cond ((empty? ls) init)
