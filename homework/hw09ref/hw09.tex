@@ -1,0 +1,82 @@
+\documentclass[12pt]{article}
+\pagestyle{empty}
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+
+\usepackage{alltt}
+\usepackage{tikz-qtree}
+\usetikzlibrary{shadows,trees}
+\usepackage{mathptmx}
+\usepackage{graphicx}
+%\newcommand{\includegraphics}{}
+
+
+
+\newcommand{\lmb}{$\lambda$}
+\newcommand{\bll}{\\\mbox{~~~~}$\bullet$}
+\newcommand{\bk}[1]{$\langle${\bf #1}$\rangle$}
+
+\newcommand{\lit}[1]{\mbox{\tt #1}}
+\usepackage[listings]{tcolorbox}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    language=Lisp,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    escapechar=|,
+    frame=single
+}
+
+\lstset{style=mystyle}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\li}{\item}
+\newcommand{\ei}{\end{itemize}}
+
+\author{CSCI 312 Homework 9}
+\title{{\tt ref} parameters}
+
+\begin{document}
+
+\maketitle
+
+\begin{description}
+
+\item[{\tt ref} parameters:]   This is {\bf Exercise 14.3.2}
+from the text.  You will build a new interpreter, starting with the
+{\tt VCFAE} interpreter of Figures 14.1 and 14.2, but adding
+reference parameters to functions.
+
+\item[Discussion:]  Also write a document discussing the questions
+proposed in {\bf Exercise 14.3.2}, parts 2 and 3.
+
+
+\item[Turn in:] Put all your files into a folder {\tt csci312hw09yourname},
+zip it, and submit to canvas.
+  
+  
+  
+
+\end{description}
+
+\end{document}
+
