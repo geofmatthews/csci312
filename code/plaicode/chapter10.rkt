@@ -7,6 +7,7 @@
   [id (name symbol?)]
   [fun (param symbol?) (body RCFAE?)]
   [app (fun-expr RCFAE?) (arg-expr RCFAE?)]
+  [with (bound-d symbol?) (named-expr RCFAE?) (bound-body RCFAE?)]
   [if0 (text-expr RCFAE?)
        (true-expr RCFAE?)
        (false-expr RCFAE?)]
@@ -73,6 +74,11 @@
     [num (n) (numV n)]
     [add (l r) (num+ (interp l env) (interp r env))]
     [mult (l r) (num* (interp l env) (interp r env))]
+    [with (bound-id named-expr bound-body)
+          (interp bound-body
+                  (aSub bound-id
+                        (interp named-expr env)
+                        env))]
     [if0 (test truth falsity)
          (if (num-zero? (interp test env))
              (interp truth env)
@@ -107,6 +113,13 @@
        (mtSub))
       (numV 6))
 
+(test (interp
+       (with 'x (num 2)
+             (add (id 'x)
+                  (with 'x (num 3) (id 'x))))
+       (mtSub))
+      (numV 5))
+
 
 (test (interp
        (rec 'fac
@@ -118,3 +131,16 @@
          (app (id 'fac) (num 5)))
        (mtSub))
       (numV 120))
+
+(test (interp
+       (with 'x (num 5)
+             (rec 'x (num 6)
+               (if0 (num 0) (num 4) (id 'x))))
+       (mtSub))
+      (numV 4))
+(test (interp
+       (with 'x (num 5)
+             (rec 'x (add (id 'x) (id 'x))
+               (if0 (num 0) (num 4) (id 'x))))
+       (mtSub))
+      (numV 4))
