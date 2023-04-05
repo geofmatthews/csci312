@@ -5,11 +5,9 @@
 (define-type CFAE/L
   [num (n number?)]
   [add (left CFAE/L?) (right CFAE/L?)]
-  [mult (left CFAE/L?) (right CFAE/L?)]
   [id (name symbol?)]
   [fun (param symbol?) (body CFAE/L?)]
-  [app (fun-expr CFAE/L?) (arg-expr CFAE/L?)]
-  [if0 (condition CFAE/L?) (then CFAE/L?) (else CFAE/L?)])
+  [app (fun-expr CFAE/L?) (arg-expr CFAE/L?)])
 
 ;; preparse : sexpr -> sexpr
 ;; This changes (with (x e) b) into ((fun (x) b) e)
@@ -38,13 +36,8 @@
          (case (first sexpr)
            [(+) (add (parse (second sexpr))
                      (parse (third sexpr)))]
-           [(*) (mult (parse (second sexpr))
-                     (parse (third sexpr)))]
            [(fun) (fun (first (second sexpr))
                        (parse (third sexpr)))]
-           [(if0) (if0 (parse (second sexpr))
-                       (parse (third sexpr))
-                       (parse (fourth sexpr)))]
            [else (app (parse (first sexpr))
                       (parse (second sexpr)))]
            )]))
@@ -59,7 +52,9 @@
   [numV (n number?)]
   [closureV (param symbol?)
             (body CFAE/L?)
-            (env Environment?)])
+            (env Environment?)]
+  [exprV (expr CFAE/L?)
+         (env Environment?)])
 
 (define-type Environment
   [mtSub]
@@ -76,47 +71,31 @@
                        (lookup name rest-env))]))
 
 
-(define (add-args CFAE/Lv1 CFAE/Lv2)
-  (type-case CFAE/L-Value CFAE/Lv1
-             [numV (n) (numV (+ n
-                          (type-case CFAE/L-Value CFAE/Lv2
-                                     [numV (m) m]
-                                     [else (error 'add-args "Adding non-numbers")])))]
-             [else (error 'add-args "Adding non-numbers")]))
-
-(define (mult-args CFAE/Lv1 CFAE/Lv2)
-  (type-case CFAE/L-Value CFAE/Lv1
-             [numV (n) (numV (* n
-                          (type-case CFAE/L-Value CFAE/Lv2
-                                     [numV (m) m]
-                                     [else (error 'add-args "Adding non-numbers")])))]
-             [else (error 'add-args "Adding non-numbers")]))
-
-(define (zero-val? CFAE/Lv)
-  (type-case CFAE/L-Value CFAE/Lv
-             [numV (n) (zero? n)]
-             [else #f]))
+(define (add-args v1 v2)
+  (numV (+ (numV-n (strict v1)) (numV-n (strict v2))))) 
 
 ;; interp : FWAE Environment -> number
 (define (interp expr env)
   (type-case CFAE/L expr
              [num (n) (numV n)]
              [add (l r) (add-args (interp l env) (interp r env))]
-             [mult (l r) (mult-args (interp l env) (interp r env))]
              [id (v) (lookup v env)]
              [fun (bound-id bound-body)
                   (closureV bound-id bound-body env)]
-             [if0 (condition thenpart elsepart)
-                  (if (zero-val? (interp condition env))
-                      (interp thenpart env)
-                      (interp elsepart env))]
              [app (fun-expr arg-expr)
-                  (local ([define fun-val (interp fun-expr env)])
+                  (local ([define fun-val (interp fun-expr env)]
+                          [define arg-val (exprV arg-expr env)])
                     (interp (closureV-body fun-val)
                             (aSub (closureV-param fun-val)
-                                  (interp arg-expr env)
+                                  arg-expr
                                   (closureV-env fun-val) )))]
              ))
+
+(define (strict e)
+  (type-case CFAE/L-Value e
+    [exprV (expr env)
+           (strict (interp expr env))]
+    [else e]))
 
 ;; Tests
 (test
@@ -131,41 +110,3 @@
                                     (f 4)))))
          (mtSub))
  (numV 7))
-
-(test
- (interp (wparse '(if0 1 2 3))
-         (mtSub))
- (numV 3))
-
-(test 
- (interp (wparse '(with (x 10)
-                        (with (f (fun (y) (if0 y 99 (+ y y))))
-                              (if0 x 22 (f x)))))
-         (mtSub))
- (numV 20 ))
-
-(require racket/trace)
-;(trace interp)
-(test
- (interp (wparse '(with (x 10)
-                        (with (f (fun (y) (if0 y 99 (+ y y))))
-                              (if0 x 22 (f x)))))
-         (mtSub))
- (numV 20))
-(test
-(interp (wparse '(with (fac-gen (fun (f)
-                                     (fun (n)
-                                          (if0 n 1
-                                               (* n ((f f) (+ n -1)))))))
-                       ((fac-gen fac-gen) 5)))
-        (mtSub))
-(numV 120))
-
-;; No binding:
-;(interp (wparse '(with (fac (fun (n)
-;                                 (if0 n
-;                                      1
-;                                      (* n (fac (+ n -1)))))
-;                            )
-;                       (fac 5)))
-;        (mtSub))
