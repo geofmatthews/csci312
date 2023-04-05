@@ -1,0 +1,165 @@
+#lang plai
+
+#|
+Name: Jackson Jacobs
+Class: CSCI-312 Programming Language Design
+Homework 7
+|#
+
+#|
+Type definintions
+|#
+(define-type BFAE
+  [num (n number?)]
+  [add (l BFAE?) (r BFAE?)]
+  [id (name symbol?)]
+  [fun (param symbol?) (body BFAE?)]
+  [app (fun-expr BFAE?) (arg-expr BFAE?)]
+  [bool (tf boolean?)]
+  [BFAEand (l BFAE?) (r BFAE?)]
+  [BFAEor (l BFAE?) (r BFAE?)]
+  [BFAEnot (tf BFAE?)]
+  [BFAE< (n1 BFAE?) (n2 BFAE?)]
+  [BFAE= (n1 BFAE?) (n2 BFAE?)]
+  [BFAEif (expr BFAE?) (then BFAE?) (else BFAE?)])
+
+(define-type BFAE-Value
+  [numV (n number?)]
+  [closureV (param symbol?)
+            (body BFAE?)
+            (ds DefrdSub?)]
+  [boolV (tf boolean?)])
+
+(define-type DefrdSub
+  [mtSub]
+  [aSub (name symbol?) (value BFAE-Value?) (ds DefrdSub?)])
+
+#|
+Parser
+|#
+(define (parse sexp)
+  (cond
+    [(number? sexp) (num sexp)]
+    [(symbol? sexp) (id sexp)]
+    [(boolean? sexp) (bool sexp)]
+    [(list? sexp)
+     (case (first sexp)
+       [(+) (add (parse (second sexp))
+                 (parse (third sexp)))]
+       [(fun) (fun (second sexp) (parse (third sexp)))]
+       [(app) (app (parse (second sexp)) (parse (third sexp)))]
+       [(and) (BFAEand (parse (second sexp)) (parse (third sexp)))]
+       [(or) (BFAEor (parse (second sexp)) (parse (third sexp)))]
+       [(not) (BFAEnot (parse (second sexp)))]
+       [(<) (BFAE< (parse (second sexp)) (parse (third sexp)))]
+       [(=) (BFAE= (parse (second sexp)) (parse (third sexp)))]
+       [(if) (BFAEif (parse (second sexp)) (parse (third sexp)) (parse (fourth sexp)))]
+       )
+     ]
+    )
+  )
+
+#|
+Lookup function
+|#
+(define (lookup name ds)
+  (type-case DefrdSub ds
+    [mtSub () (error 'lookup "no binding for identifier")]
+    [aSub (bound-name bound-value rest-ds)
+          (if (symbol=? bound-name name)
+              bound-value
+              (lookup name rest-ds))]))
+
+#|
+Add function
+|#
+(define (num+ n1 n2)
+  (numV (+ (numV-n n1) (numV-n n2))))
+
+#|
+Conditional functions- and, or, not, <, and =
+|#
+(define (BFAE-and l r)
+  (boolV (and (boolV-tf l) (boolV-tf r))))
+
+(define (BFAE-or l r)
+  (boolV (or (boolV-tf l) (boolV-tf r))))
+
+(define (BFAE-not tf)
+  (boolV (not (boolV-tf tf))))
+
+(define (BFAE-< n1 n2)
+  (boolV (< (numV-n n1) (numV-n n2))))
+
+(define (BFAE-= n1 n2)
+  (boolV (= (numV-n n1) (numV-n n2))))
+
+#|
+Interpreter
+|#
+(define (interp expr ds)
+  (type-case BFAE expr
+    [num (n) (numV n)]
+    [add (l r) (num+ (interp l ds) (interp r ds))]
+    [id (v) (lookup v ds)]
+    [fun (bound-id bound-body)
+         (closureV bound-id bound-body ds)]
+    [app (fun-expr arg-expr)
+         (local ([define fun-val (interp fun-expr ds)])
+           (interp (closureV-body fun-val)
+                   (aSub (closureV-param fun-val)
+                         (interp arg-expr ds)
+                         (closureV-ds fun-val))))]
+    [bool (tf) (boolV tf)]
+    [BFAEand (l r) (BFAE-and (interp l ds) (interp r ds))]
+    [BFAEor (l r) (BFAE-or (interp l ds) (interp r ds))]
+    [BFAEnot (tf) (BFAE-not (interp tf ds))]
+    [BFAE< (n1 n2) (BFAE-< (interp n1 ds) (interp n2 ds))]
+    [BFAE= (n1 n2) (BFAE-= (interp n1 ds) (interp n2 ds))]
+    [BFAEif (expr then else) (if (boolV-tf (interp expr ds))
+                                 (interp then ds)
+                                 (interp else ds))]))
+
+#|
+"Cleaner" function
+Whatever BFAE-Value the program returns, convert it to its regular scheme value.
+|#
+(define (clean out)
+  (cond
+    [(boolV? out) (boolV-tf out)]
+    [(numV? out) (numV-n out)]))
+
+#|
+Testing
+|#
+;Basic tests
+(test (clean (interp (parse '(and #t #t)) (mtSub))) #t)
+(test (clean (interp (parse '(and #f #t)) (mtSub))) #f)
+(test (clean (interp (parse '(or #f #t)) (mtSub))) #t)
+(test (clean (interp (parse '(or #f #f)) (mtSub))) #f)
+(test (clean (interp (parse '(not #t)) (mtSub))) #f)
+(test (clean (interp (parse '(not #f)) (mtSub))) #t)
+(test (clean (interp (parse '(< 1000 5)) (mtSub))) #f)
+(test (clean (interp (parse '(< 1000 1001)) (mtSub))) #t)
+(test (clean (interp (parse '(= 1000 1000)) (mtSub))) #t)
+(test (clean (interp (parse '(= 1000 100320)) (mtSub))) #f)
+(test (clean (interp (parse '(if #t 50 100)) (mtSub))) 50)
+(test (clean (interp (parse '(if #f 50 100)) (mtSub))) 100)
+
+;More interesting tests
+(test (clean (interp (parse '(if (< 1000 10) (+ 3 5) 5)) (mtSub))) 5)
+(test (clean (interp (parse '(if (< 1000 100000) (+ 3 5) 5)) (mtSub))) 8)
+(test (clean (interp (parse '(if (< 10 1000) (if (= 0 0) 15 50) (if (= 0 0) 10 50))) (mtSub))) 15)
+(test (clean (interp (parse '(if (not (not (= 0 0))) (+ 32 -32) 10032)) (mtSub))) 0)
+
+;Testing some functions
+(test (clean (interp (parse '(app (fun x (+ x x)) 3)) (mtSub))) 6)
+(test (clean (interp (parse '(app (fun x (if (< x 1000) (+ x (+ x x)) #f)) 193)) (mtSub))) 579)
+(test (clean (interp (parse '(app (fun x (if (< x 1000) (+ x (+ x x)) #f)) 1930)) (mtSub))) #f)
+(test (clean (interp (parse '(app (fun double (app double 3)) (fun x (+ x x)))) (mtSub))) 6)
+(test (clean (interp (parse '(app (fun quad (app quad -50)) (fun x (if (< x 0) x (+ (+ (+ x x) x) x))))) (mtSub))) -50) ;quadruples a number, unless it is negative where it just returns the num
+(test (clean (interp (parse '(app (fun quad (app quad 100000)) (fun x (if (< x 0) x (+ (+ (+ x x) x) x))))) (mtSub))) 400000) ; ^
+
+
+(test (clean (interp (parse '(and (or #t #f) #t)) (mtSub)))
+      #t)
